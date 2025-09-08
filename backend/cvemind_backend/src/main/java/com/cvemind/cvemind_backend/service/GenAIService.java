@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -11,15 +13,21 @@ import com.cvemind.cvemind_backend.config.GenAiProperties;
 
 @Service
 public class GenAIService {
+    
+    private static final Logger logger = LoggerFactory.getLogger(GenAIService.class);
+    
     private final WebClient webClient;
     private final GenAiProperties genAiProperties;
 
     public GenAIService(WebClient.Builder builder, GenAiProperties genAiProperties) {
         this.webClient = builder.baseUrl("https://openrouter.ai/api/v1").build();
         this.genAiProperties = genAiProperties;
+        logger.info("GenAIService initialized with model: {}", genAiProperties.getModel());
     }
 
     public String summarizeCve(String cveDetails) {
+        logger.debug("Starting CVE summarization for CVE details length: {}", cveDetails.length());
+        
         String systemPrompt = """
             You are a cybersecurity expert specializing in vulnerability analysis. 
             Provide clear, actionable summaries of CVE (Common Vulnerabilities and Exposures) information.
@@ -43,10 +51,19 @@ public class GenAIService {
             Format your response with clear sections and bullet points for easy reading.
             """, cveDetails);
 
-        return makeApiCall(systemPrompt, userPrompt);
+        try {
+            String result = makeApiCall(systemPrompt, userPrompt);
+            logger.info("Successfully generated CVE summary");
+            return result;
+        } catch (Exception e) {
+            logger.error("Failed to generate CVE summary: {}", e.getMessage(), e);
+            throw e;
+        }
     }
 
     public String generateMitigationStrategy(String cveDetails) {
+        logger.debug("Starting mitigation strategy generation for CVE details length: {}", cveDetails.length());
+        
         String systemPrompt = """
             You are a cybersecurity consultant specializing in vulnerability remediation strategies.
             Provide detailed, actionable mitigation plans that organizations can implement immediately.
@@ -80,10 +97,19 @@ public class GenAIService {
             Provide specific, implementable recommendations.
             """, cveDetails);
 
-        return makeApiCall(systemPrompt, userPrompt);
+        try {
+            String result = makeApiCall(systemPrompt, userPrompt);
+            logger.info("Successfully generated mitigation strategy");
+            return result;
+        } catch (Exception e) {
+            logger.error("Failed to generate mitigation strategy: {}", e.getMessage(), e);
+            throw e;
+        }
     }
 
     public String assessRiskContext(String cveDetails, String organizationContext) {
+        logger.debug("Starting risk assessment for organization context length: {}", organizationContext.length());
+        
         String systemPrompt = """
             You are a risk assessment specialist who helps organizations understand 
             the specific impact of vulnerabilities in their unique environment.
@@ -110,10 +136,19 @@ public class GenAIService {
             Tailor your assessment to this specific organizational context.
             """, organizationContext, cveDetails);
 
-        return makeApiCall(systemPrompt, userPrompt);
+        try {
+            String result = makeApiCall(systemPrompt, userPrompt);
+            logger.info("Successfully generated risk assessment");
+            return result;
+        } catch (Exception e) {
+            logger.error("Failed to generate risk assessment: {}", e.getMessage(), e);
+            throw e;
+        }
     }
 
     public String generateTechnicalAnalysis(String cveDetails) {
+        logger.debug("Starting technical analysis for CVE details length: {}", cveDetails.length());
+        
         String systemPrompt = """
             You are a senior security researcher with deep technical expertise in vulnerability analysis.
             Provide detailed technical insights for security engineers and developers.
@@ -151,10 +186,19 @@ public class GenAIService {
             Focus on technical depth and actionable engineering insights.
             """, cveDetails);
 
-        return makeApiCall(systemPrompt, userPrompt);
+        try {
+            String result = makeApiCall(systemPrompt, userPrompt);
+            logger.info("Successfully generated technical analysis");
+            return result;
+        } catch (Exception e) {
+            logger.error("Failed to generate technical analysis: {}", e.getMessage(), e);
+            throw e;
+        }
     }
 
     public String getRelatedResources(String cveId, String cveDetails) {
+        logger.debug("Generating related resources for CVE: {}", cveId);
+        
         String systemPrompt = """
             You are a cybersecurity information specialist who helps teams find 
             relevant resources and references for vulnerability research and remediation.
@@ -195,11 +239,20 @@ public class GenAIService {
             Format as a structured list with brief descriptions.
             """, cveId, cveDetails);
 
-        return makeApiCall(systemPrompt, userPrompt);
+        try {
+            String result = makeApiCall(systemPrompt, userPrompt);
+            logger.info("Successfully generated related resources for CVE: {}", cveId);
+            return result;
+        } catch (Exception e) {
+            logger.error("Failed to generate related resources for CVE {}: {}", cveId, e.getMessage(), e);
+            throw e;
+        }
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private String makeApiCall(String systemPrompt, String userPrompt) {
+        logger.debug("Making API call to GenAI service");
+        
         List<Map<String, String>> messages = new ArrayList<>();
         messages.add(Map.of("role", "system", "content", systemPrompt));
         messages.add(Map.of("role", "user", "content", userPrompt));
@@ -212,6 +265,8 @@ public class GenAIService {
         );
 
         try {
+            logger.debug("Sending request to OpenRouter API with model: {}", genAiProperties.getModel());
+            
             Map response = this.webClient.post()
                     .uri("/chat/completions")
                     .header("Authorization", "Bearer " + genAiProperties.getApiKey())
@@ -220,8 +275,12 @@ public class GenAIService {
                     .bodyToMono(Map.class)
                     .block();
 
-            return ((Map<String, Object>) ((Map) ((java.util.List) response.get("choices")).get(0)).get("message")).get("content").toString();
+            String result = ((Map<String, Object>) ((Map) ((java.util.List) response.get("choices")).get(0)).get("message")).get("content").toString();
+            logger.debug("Successfully received response from GenAI API, length: {}", result.length());
+            return result;
+            
         } catch (Exception e) {
+            logger.error("GenAI API call failed: {}", e.getMessage(), e);
             return "Error generating AI response: " + e.getMessage();
         }
     }
