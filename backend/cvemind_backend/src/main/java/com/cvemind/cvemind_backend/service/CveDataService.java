@@ -117,7 +117,6 @@ public class CveDataService {
             logger.error("Error searching CVEs by severity {}: {}", severity, e.getMessage(), e);
             throw new RuntimeException("Failed to search CVEs by severity", e);
         }
-    }
 
     public CveDto saveCVE(CveDto cveDto) {
         logger.debug("Saving CVE: {}", cveDto.getId());
