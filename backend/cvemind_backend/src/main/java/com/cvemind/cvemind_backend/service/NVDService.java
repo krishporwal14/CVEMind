@@ -12,10 +12,10 @@ import com.cvemind.cvemind_backend.entity.CveEntity;
 import com.cvemind.cvemind_backend.utils.CveMapper;
 
 @Service
-public class NVDSerivce {
+public class NVDService {
     private final WebClient webClient;
 
-    public NVDSerivce(WebClient.Builder builder) {
+    public NVDService(WebClient.Builder builder) {
         this.webClient = builder.baseUrl("https://services.nvd.nist.gov/rest/json/cves/2.0").build();
     }
 
