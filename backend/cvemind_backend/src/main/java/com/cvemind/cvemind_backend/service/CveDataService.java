@@ -27,6 +27,35 @@ public class CveDataService {
         logger.info("CveDataService initialized successfully");
     }
 
+    public CveDto getCveWithRawJsonForAI(String cveId) {
+        logger.debug("Fetching CVE with rawJson for AI processing: {}", cveId);
+        
+        try {
+            // Always fetch from NVD for AI processing to get rawJson
+            CveDto nvdCve = nvdService.fetchCVEById(cveId);
+            
+            if (nvdCve != null) {
+                // Ensure it's also saved locally (without rawJson)
+                try {
+                    CveEntity entity = CveMapper.toEntity(nvdCve);
+                    cveRepository.save(entity);
+                    logger.debug("Ensured CVE {} is saved to local database", cveId);
+                } catch (Exception e) {
+                    logger.warn("Failed to save CVE {} to database: {}", cveId, e.getMessage());
+                }
+                
+                return nvdCve; // This has rawJson for AI processing
+            } else {
+                logger.warn("CVE {} not found in NVD for AI processing", cveId);
+                return null;
+            }
+            
+        } catch (Exception e) {
+            logger.error("Error fetching CVE {} for AI processing: {}", cveId, e.getMessage(), e);
+            throw new RuntimeException("Failed to fetch CVE for AI processing", e);
+        }
+    }
+
     public CveDto getCveById(String cveId) {
         logger.debug("Fetching CVE by ID: {}", cveId);
         
@@ -45,7 +74,7 @@ public class CveDataService {
             if (nvdCve != null) {
                 // Save to database
                 try {
-                    CveEntity entity = CveMapper.toEntity(nvdCve, nvdCve.getRawJson());
+                    CveEntity entity = CveMapper.toEntity(nvdCve);
                     cveRepository.save(entity);
                     logger.debug("Saved CVE {} to local database", cveId);
                 } catch (Exception e) {
@@ -85,7 +114,7 @@ public class CveDataService {
             // Save to database for future use
             nvdCves.forEach(cve -> {
                 try {
-                    CveEntity entity = CveMapper.toEntity(cve, cve.getRawJson());
+                    CveEntity entity = CveMapper.toEntity(cve);
                     cveRepository.save(entity);
                     logger.debug("Saved CVE {} to local database", cve.getId());
                 } catch (Exception e) {
@@ -115,7 +144,7 @@ public class CveDataService {
             
         } catch (Exception e) {
             logger.error("Error searching CVEs by severity {}: {}", severity, e.getMessage(), e);
-            return null;
+            throw new RuntimeException("Failed to search CVEs by severity", e);
         }
     }
 
@@ -123,7 +152,7 @@ public class CveDataService {
         logger.debug("Saving CVE: {}", cveDto.getId());
         
         try {
-            CveEntity entity = CveMapper.toEntity(cveDto, cveDto.getRawJson());
+            CveEntity entity = CveMapper.toEntity(cveDto);
             CveEntity savedEntity = cveRepository.save(entity);
             CveDto savedDto = CveMapper.toDto(savedEntity);
             

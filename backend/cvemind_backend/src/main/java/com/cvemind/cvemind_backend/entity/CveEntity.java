@@ -20,8 +20,7 @@ public class CveEntity {
 
     private Instant publishedDate;
 
-    @Column(columnDefinition = "TEXT")
-    private String rawJson;
+    // Removed rawJson field
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -31,6 +30,4 @@ public class CveEntity {
     public void setSeverity(String severity) { this.severity = severity; }
     public Instant getPublishedDate() { return publishedDate; }
     public void setPublishedDate(Instant publishedDate) { this.publishedDate = publishedDate; }
-    public String getRawJson() { return rawJson; }
-    public void setRawJson(String rawJson) { this.rawJson = rawJson; }
 }

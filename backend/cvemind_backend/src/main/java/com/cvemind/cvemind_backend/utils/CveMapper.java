@@ -23,16 +23,16 @@ public class CveMapper {
         dto.setDescription(entity.getDescription());
         dto.setSeverity(entity.getSeverity());
         dto.setPublishedDate(entity.getPublishedDate());
-
-        // Parse references from rawJson
-        List<String> references = extractReferences(entity.getRawJson());
-        dto.setReferences(references);
+        // Don't set rawJson from entity since we're not storing it
+        dto.setRawJson(null);
+        // Set empty references since we can't extract from stored rawJson
+        dto.setReferences(new ArrayList<>());
 
         return dto;
     }
 
-    // Convert DTO -> Entity
-    public static CveEntity toEntity(CveDto dto, String rawJson) {
+    // Convert DTO -> Entity (no rawJson parameter needed)
+    public static CveEntity toEntity(CveDto dto) {
         if (dto == null) return null;
 
         CveEntity entity = new CveEntity();
@@ -40,9 +40,27 @@ public class CveMapper {
         entity.setDescription(dto.getDescription());
         entity.setSeverity(dto.getSeverity());
         entity.setPublishedDate(dto.getPublishedDate());
-        entity.setRawJson(rawJson); // Keep full JSON for flexibility
+        // No rawJson field to set
 
         return entity;
+    }
+
+    // Keep this for NVD processing - extract references during DTO creation from NVD
+    public static CveDto toDtoWithReferences(CveEntity entity, String rawJson) {
+        if (entity == null) return null;
+
+        CveDto dto = new CveDto();
+        dto.setId(entity.getId());
+        dto.setDescription(entity.getDescription());
+        dto.setSeverity(entity.getSeverity());
+        dto.setPublishedDate(entity.getPublishedDate());
+        dto.setRawJson(rawJson); // Keep rawJson in DTO for AI processing
+        
+        // Extract references from rawJson
+        List<String> references = extractReferences(rawJson);
+        dto.setReferences(references);
+
+        return dto;
     }
 
     // Helper to extract references from rawJson (NVD API structure)
@@ -52,16 +70,20 @@ public class CveMapper {
 
         try {
             JsonNode root = objectMapper.readTree(rawJson);
-            JsonNode referencesNode = root.at("/cve/references/reference_data");
+            JsonNode referencesNode = root.at("/references");
             if (referencesNode.isArray()) {
                 Iterator<JsonNode> it = referencesNode.elements();
                 while (it.hasNext()) {
                     JsonNode ref = it.next();
-                    refs.add(ref.get("url").asText());
+                    JsonNode urlNode = ref.get("url");
+                    if (urlNode != null) {
+                        refs.add(urlNode.asText());
+                    }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            // Log error but don't fail
+            System.err.println("Error parsing references from rawJson: " + e.getMessage());
         }
 
         return refs;

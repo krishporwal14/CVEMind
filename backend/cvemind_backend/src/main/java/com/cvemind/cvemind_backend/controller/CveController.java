@@ -138,7 +138,8 @@ public class CveController {
         logger.info("Generating AI summary for CVE: {}", cveId);
         
         try {
-            CveDto cve = cveDataService.getCveById(cveId);
+            // Use special method that gets rawJson for AI processing
+            CveDto cve = cveDataService.getCveWithRawJsonForAI(cveId);
             if (cve == null) {
                 logger.warn("CVE not found for summarization: {}", cveId);
                 return ResponseEntity.notFound().build();
@@ -156,12 +157,13 @@ public class CveController {
         }
     }
 
+    // Apply similar changes to other AI endpoints...
     @PostMapping("/{cveId}/mitigation")
     public ResponseEntity<Map<String, String>> generateMitigation(@PathVariable String cveId) {
         logger.info("Generating mitigation strategy for CVE: {}", cveId);
         
         try {
-            CveDto cve = cveDataService.getCveById(cveId);
+            CveDto cve = cveDataService.getCveWithRawJsonForAI(cveId);
             if (cve == null) {
                 return ResponseEntity.notFound().build();
             }
