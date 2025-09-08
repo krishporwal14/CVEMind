@@ -81,7 +81,7 @@ public class CveDataService {
             if (nvdCve != null) {
                 // Save to database
                 try {
-                    CveEntity entity = CveMapper.toEntity(nvdCve, cveId);
+                    CveEntity entity = CveMapper.toEntity(nvdCve, nvdCve.getRawJson());
                     cveRepository.save(entity);
                     logger.debug("Saved CVE {} to local database", cveId);
                 } catch (Exception e) {
