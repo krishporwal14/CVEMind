@@ -25,10 +25,6 @@ public class CveDataService {
         return cveRepository.findByDescriptionContainingIgnoreCase(keyword);
     }
 
-    public List<CveEntity> searchByProduct(String product) {
-        return cveRepository.findByProductContainingIgnoreCase(product);
-    }
-
     public List<CveEntity> searchBySeverity(String severity) {
         return cveRepository.findBySeverityIgnoreCase(severity);
     }
