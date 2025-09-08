@@ -9,6 +9,7 @@ public class CveDto {
     private String severity;
     private Instant publishedDate;
     private List<String> references;
+    private String rawJson;
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -20,4 +21,6 @@ public class CveDto {
     public void setPublishedDate(Instant publishedDate) { this.publishedDate = publishedDate; }
     public List<String> getReferences() { return references; }
     public void setReferences(List<String> references) { this.references = references; }
+    public String getRawJson() { return rawJson; }
+    public void setRawJson(String rawJson) { this.rawJson = rawJson; }
 }
