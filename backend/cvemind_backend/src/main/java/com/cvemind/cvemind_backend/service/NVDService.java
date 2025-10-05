@@ -1,5 +1,6 @@
 package com.cvemind.cvemind_backend.service;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class NVDService {
-    
-    private static final Logger logger = LoggerFactory.getLogger(NVDService.class);
-    
     private final WebClient webClient;
+    private final ObjectMapper objectMapper;
     private final Logger logger = LoggerFactory.getLogger(NVDService.class);
 
     public NVDService(WebClient.Builder builder) {
@@ -50,7 +49,7 @@ public class NVDService {
     public CveDto fetchCVEById(String cveId) {
         logger.info("Fetching CVE by ID: {}", cveId);
         long startTime = System.currentTimeMillis();
-        
+
         try {
             @SuppressWarnings("rawtypes")
             Map response = this.webClient.get()
@@ -71,25 +70,25 @@ public class NVDService {
 
             CveDto result = mapSingleToDto(response);
             long duration = System.currentTimeMillis() - startTime;
-            
+
             if (result != null) {
                 logger.info("Successfully fetched CVE '{}' in {}ms", cveId, duration);
             } else {
                 logger.warn("CVE '{}' not found after {}ms", cveId, duration);
             }
-            
+
             return result;
-            
+
         } catch (WebClientResponseException e) {
             long duration = System.currentTimeMillis() - startTime;
-            logger.error("HTTP error fetching CVE '{}' after {}ms: Status={}, Body={}", 
-                        cveId, duration, e.getStatusCode(), e.getResponseBodyAsString());
+            logger.error("HTTP error fetching CVE '{}' after {}ms: Status={}, Body={}",
+                    cveId, duration, e.getStatusCode(), e.getResponseBodyAsString());
             throw new RuntimeException("Failed to fetch CVE from NVD: " + e.getMessage(), e);
-            
+
         } catch (Exception e) {
             long duration = System.currentTimeMillis() - startTime;
-            logger.error("Error fetching CVE '{}' after {}ms: {}", 
-                        cveId, duration, e.getMessage(), e);
+            logger.error("Error fetching CVE '{}' after {}ms: {}",
+                    cveId, duration, e.getMessage(), e);
             throw new RuntimeException("Failed to fetch CVE from NVD", e);
         }
     }
@@ -217,6 +216,7 @@ public class NVDService {
         }
 
         // Severity (extract CVSS base severity if available)
+        String severity = "UNKNOWN";
         try {
             @SuppressWarnings("unchecked")
             Map<String, Object> metrics = (Map<String, Object>) cveWrapper.get("metrics");
@@ -258,7 +258,7 @@ public class NVDService {
             entity.setPublishedDate(null);
         }
 
-        logger.debug("Successfully extracted all available data for CVE: {}", cveId);
+        logger.debug("Successfully extracted all available data for CVE: {}", id);
         return entity;
     }
 

@@ -127,10 +127,10 @@ public class GenAIService {
 
         try {
             String result = makeApiCall(systemPrompt, userPrompt);
-            logger.info("Successfully generated related resources for CVE: {}", cveId);
+            logger.info("Successfully generated comprehensive CVE analysis");
             return result;
         } catch (Exception e) {
-            logger.error("Failed to generate related resources for CVE {}: {}", cveId, e.getMessage(), e);
+            logger.error("Failed to generate comprehensive CVE analysis: {}", e.getMessage(), e);
             throw e;
         }
     }

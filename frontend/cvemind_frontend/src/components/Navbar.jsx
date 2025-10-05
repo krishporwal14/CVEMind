@@ -24,16 +24,18 @@ const Nav = styled(motion.nav)`
 `;
 
 const Logo = styled(motion.div)`
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.accent};
-  text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  text-decoration: none;
   
-  &:hover {
-    color: ${({ theme }) => theme.colors.accentHover};
+  img {
+    height: 3.5rem;
+    width: auto;
+    transition: all ${({ theme }) => theme.transitions.normal};
+  }
+  
+  &:hover img {
+    transform: scale(1.05);
   }
 `;
 
@@ -123,19 +125,6 @@ const MobileMenuButton = styled(motion.button)`
   }
 `;
 
-const BrandIcon = styled.div`
-  width: 2rem;
-  height: 2rem;
-  background: ${({ theme }) => theme.colors.accent};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 0.875rem;
-`;
-
 export default function Navbar() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -167,8 +156,7 @@ export default function Navbar() {
         whileTap={{ scale: 0.95 }}
         onClick={closeMobileMenu}
       >
-        <BrandIcon>C</BrandIcon>
-        CVEMind
+        <img src="/logo.png" alt="CVEMind" />
       </Logo>
 
       <NavLinks isOpen={isMobileMenuOpen}>
