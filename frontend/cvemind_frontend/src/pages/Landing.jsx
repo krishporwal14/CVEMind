@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Shield, Zap, Brain, ArrowRight } from "lucide-react";
+import { Shield, Zap, Brain, ArrowRight, Globe } from "lucide-react";
 import BrainBackground from "../components/BrainBackground";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -209,6 +209,11 @@ export default function Landing() {
       icon: Zap,
       title: "Lightning Fast Search",
       description: "Find specific vulnerabilities instantly with our powerful search engine and smart filtering.",
+    },
+    {
+      icon: Globe,
+      title: "Global Threat Intelligence",
+      description: "Visualize vulnerability trends worldwide with our interactive 3D globe and comprehensive threat mapping.",
     },
   ];
 
