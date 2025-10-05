@@ -98,7 +98,7 @@ const CodeBlock = styled.div`
 
 const CodeHeader = styled.div`
   display: flex;
-  justify-content: between;
+  justify-content: space-between;
   align-items: center;
   padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
   background: ${({ theme }) => theme.colors.surfaceSecondary};
