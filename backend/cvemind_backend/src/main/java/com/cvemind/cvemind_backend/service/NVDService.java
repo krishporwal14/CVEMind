@@ -32,7 +32,7 @@ public class NVDService {
                 .retrieve()
                 .bodyToMono(Map.class)
                 .block();
-        
+
         return mapResponseToDtos(response);
     }
 
@@ -51,13 +51,13 @@ public class NVDService {
 
     private List<CveDto> mapResponseToDtos(@SuppressWarnings("rawtypes") Map response) {
         logger.debug("Mapping NVD response to DTOs");
-        
+
         List<CveDto> dtos = new ArrayList<>();
         if (response == null) {
             logger.warn("Received null response from NVD");
             return dtos;
         }
-        
+
         if (!response.containsKey("vulnerabilities")) {
             logger.warn("No 'vulnerabilities' key found in NVD response");
             return dtos;
@@ -66,10 +66,10 @@ public class NVDService {
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> vulns = (List<Map<String, Object>>) response.get("vulnerabilities");
         logger.debug("Processing {} vulnerabilities from NVD response", vulns.size());
-        
+
         int successCount = 0;
         int errorCount = 0;
-        
+
         for (Map<String, Object> vuln : vulns) {
             try {
                 @SuppressWarnings("unchecked")
@@ -77,14 +77,14 @@ public class NVDService {
                 if (cveWrapper != null) {
                     String cveId = (String) cveWrapper.get("id");
                     logger.debug("Processing CVE: {}", cveId);
-                    
+
                     String rawJson = toJsonString(cveWrapper);
                     CveEntity entity = extractEntityFromMap(cveWrapper);
-                    
+
                     // Create DTO with rawJson for AI processing
                     CveDto dto = CveMapper.toDtoWithReferences(entity, rawJson);
                     dtos.add(dto);
-                    
+
                     successCount++;
                     logger.debug("Successfully processed CVE: {}", cveId);
                 } else {
@@ -96,19 +96,19 @@ public class NVDService {
                 logger.warn("Error processing vulnerability entry: {}", e.getMessage(), e);
             }
         }
-        
+
         logger.info("Mapped {} CVEs successfully, {} errors encountered", successCount, errorCount);
         return dtos;
     }
 
     private CveDto mapSingleToDto(@SuppressWarnings("rawtypes") Map response) {
         logger.debug("Mapping single CVE from NVD response");
-        
+
         if (response == null) {
             logger.warn("Received null response from NVD");
             return null;
         }
-        
+
         if (!response.containsKey("vulnerabilities")) {
             logger.warn("No 'vulnerabilities' key found in NVD response");
             return null;
@@ -131,16 +131,16 @@ public class NVDService {
 
             String cveId = (String) cveWrapper.get("id");
             logger.debug("Processing single CVE: {}", cveId);
-            
+
             String rawJson = toJsonString(cveWrapper);
             CveEntity entity = extractEntityFromMap(cveWrapper);
-            
+
             // Create DTO with rawJson for AI processing
             CveDto dto = CveMapper.toDtoWithReferences(entity, rawJson);
-            
+
             logger.debug("Successfully processed single CVE: {}", cveId);
             return dto;
-            
+
         } catch (Exception e) {
             logger.error("Error mapping single CVE: {}", e.getMessage(), e);
             return null;
@@ -175,15 +175,20 @@ public class NVDService {
         String severity = "UNKNOWN";
         try {
             @SuppressWarnings("unchecked")
-            Map<String, Object> metrics = (Map<String, Object>) ((Map<?, ?>) cveWrapper.get("metrics")).get("cvssMetricV31");
+            Map<String, Object> metrics = (Map<String, Object>) cveWrapper.get("metrics");
             if (metrics != null) {
                 @SuppressWarnings("unchecked")
-                Map<String, Object> firstMetric = (Map<String, Object>) ((List<?>) metrics).get(0);
-                @SuppressWarnings("unchecked")
-                Map<String, Object> cvssData = (Map<String, Object>) firstMetric.get("cvssData");
-                severity = (String) cvssData.get("baseSeverity");
+                List<Map<String, Object>> cvssMetrics = (List<Map<String, Object>>) metrics.get("cvssMetricV31");
+                if (cvssMetrics != null && !cvssMetrics.isEmpty()) {
+                    Map<String, Object> firstMetric = cvssMetrics.get(0);
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> cvssData = (Map<String, Object>) firstMetric.get("cvssData");
+                    if (cvssData != null) {
+                        severity = (String) cvssData.get("baseSeverity");
+                    }
+                }
             }
-            entity.setSeverity(severity);
+            entity.setSeverity(severity != null ? severity : "UNKNOWN");
             logger.debug("Set severity for CVE {}: {}", id, severity);
         } catch (Exception e) {
             logger.warn("Failed to extract severity for CVE {}: {}", id, e.getMessage());
@@ -193,7 +198,13 @@ public class NVDService {
         try {
             String publishedStr = (String) cveWrapper.get("published");
             if (publishedStr != null) {
-                // Convert to Instant
+                // Handle timestamp with milliseconds: 2024-04-09T17:15:42.823
+                // Remove the milliseconds part and parse as Instant
+                if (publishedStr.contains(".")) {
+                    publishedStr = publishedStr.substring(0, publishedStr.lastIndexOf('.')) + "Z";
+                } else if (!publishedStr.endsWith("Z")) {
+                    publishedStr += "Z";
+                }
                 Instant publishedDate = Instant.parse(publishedStr);
                 entity.setPublishedDate(publishedDate);
                 logger.debug("Set published date for CVE {}: {}", id, publishedDate);
