@@ -1,191 +1,669 @@
-2025-09-08 17:58:24.442 [restartedMain] INFO  c.c.c.CvemindBackendApplication - Starting CvemindBackendApplication using Java 17.0.12 with PID 3232 (E:\Future\CVEMind\backend\cvemind_backend\target\classes started by krish in E:\Future\CVEMind\backend\cvemind_backend)
-2025-09-08 17:58:24.447 [restartedMain] DEBUG c.c.c.CvemindBackendApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
-2025-09-08 17:58:24.447 [restartedMain] INFO  c.c.c.CvemindBackendApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-08 17:58:24.587 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-09-08 17:58:24.587 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-09-08 17:58:27.823 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2025-09-08 17:58:27.832 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-08 17:58:28.336 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 463 ms. Found 1 JPA repository interface.
-2025-09-08 17:58:28.384 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2025-09-08 17:58:28.388 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2025-09-08 17:58:28.436 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.cvemind.cvemind_backend.repository.CveRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-08 17:58:28.437 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
-2025-09-08 17:58:30.416 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2025-09-08 17:58:30.460 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-08 17:58:30.462 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
-2025-09-08 17:58:30.634 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-08 17:58:30.636 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6048 ms
-2025-09-08 17:58:32.934 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-08 17:58:33.611 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:6f80b2f8-c7f7-4d47-93d2-894f86da9555 user=SA
-2025-09-08 17:58:33.621 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-08 17:58:33.845 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-08 17:58:34.119 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
-2025-09-08 17:58:34.267 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-08 17:58:35.328 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-08 17:58:35.639 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-10-05T02:25:39.755+05:30  WARN 18364 --- [cvemind_backend] [HikariPool-25:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-25 - Thread starvation or clock leap detected (housekeeper delta=3h52m26s288ms879�s300ns).
+2025-10-05T13:22:14.761+05:30  WARN 18364 --- [cvemind_backend] [HikariPool-25:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-25 - Thread starvation or clock leap detected (housekeeper delta=10h56m38s172ms643�s300ns).
+2025-10-05T13:22:14.808+05:30  WARN 18364 --- [cvemind_backend] [HikariPool-25:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-25 - Failed to validate connection org.mariadb.jdbc.Connection@2b0b9d48 ((conn=187) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2025-10-05T13:22:14.831+05:30  WARN 18364 --- [cvemind_backend] [HikariPool-25:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-25 - Failed to validate connection org.mariadb.jdbc.Connection@170b1e48 ((conn=188) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2025-10-05T13:22:14.841+05:30  WARN 18364 --- [cvemind_backend] [HikariPool-25:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-25 - Failed to validate connection org.mariadb.jdbc.Connection@56b1828e ((conn=186) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2025-10-05T13:22:14.843+05:30  WARN 18364 --- [cvemind_backend] [HikariPool-25:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-25 - Failed to validate connection org.mariadb.jdbc.Connection@2127b4cd ((conn=189) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2025-10-05T13:22:14.847+05:30  WARN 18364 --- [cvemind_backend] [HikariPool-25:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-25 - Failed to validate connection org.mariadb.jdbc.Connection@7f926b98 ((conn=190) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2025-10-05T21:54:18.088+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] c.c.c.CvemindBackendApplication          : Starting CvemindBackendApplication using Java 17.0.12 with PID 16312 (E:\Future\CVEMind\backend\cvemind_backend\target\classes started by krish in E:\Future\CVEMind\backend\cvemind_backend)
+2025-10-05T21:54:18.095+05:30 DEBUG 16312 --- [cvemind_backend] [restartedMain] c.c.c.CvemindBackendApplication          : Running with Spring Boot v3.5.5, Spring v6.2.10
+2025-10-05T21:54:18.101+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] c.c.c.CvemindBackendApplication          : No active profile set, falling back to 1 default profile: "default"
+2025-10-05T21:54:18.361+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-05T21:54:18.363+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-05T21:54:24.197+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-10-05T21:54:24.204+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-05T21:54:25.000+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 734 ms. Found 1 JPA repository interface.
+2025-10-05T21:54:25.152+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-10-05T21:54:25.159+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-10-05T21:54:25.245+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.cvemind.cvemind_backend.repository.CveRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-10-05T21:54:25.248+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
+2025-10-05T21:54:27.488+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-05T21:54:27.536+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-05T21:54:27.536+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-10-05T21:54:27.722+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-05T21:54:27.724+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 9353 ms
+2025-10-05T21:54:29.833+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-05T21:54:30.115+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-10-05T21:54:30.271+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-05T21:54:31.798+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-05T21:54:31.975+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-05T21:54:32.448+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@b0fbb6
+2025-10-05T21:54:32.452+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-05T21:54:32.550+05:30  WARN 16312 --- [cvemind_backend] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-05T21:54:32.633+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
-	Database version: 2.3.232
+	Database version: 11.3.2
 	Autocommit mode: undefined/unknown
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-09-08 17:58:37.898 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-08 17:58:37.937 [restartedMain] DEBUG org.hibernate.SQL - drop table if exists cves cascade 
-2025-09-08 17:58:37.957 [restartedMain] DEBUG org.hibernate.SQL - create table cves (published_date timestamp(6) with time zone, description TEXT, id varchar(255) not null, raw_json TEXT, severity varchar(255), primary key (id))
-2025-09-08 17:58:37.983 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-08 17:58:38.720 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cveDataService' defined in file [E:\Future\CVEMind\backend\cvemind_backend\target\classes\com\cvemind\cvemind_backend\service\CveDataService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'cveRepository' defined in com.cvemind.cvemind_backend.repository.CveRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.cvemind.cvemind_backend.repository.CveRepository.findByProductContainingIgnoreCase(java.lang.String); Reason: Failed to create query for method public abstract java.util.List com.cvemind.cvemind_backend.repository.CveRepository.findByProductContainingIgnoreCase(java.lang.String); No property 'product' found for type 'CveEntity'
-2025-09-08 17:58:38.722 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-08 17:58:38.723 [restartedMain] DEBUG org.hibernate.SQL - drop table if exists cves cascade 
-2025-09-08 17:58:38.742 [restartedMain] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
-2025-09-08 17:58:38.744 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-08 17:58:38.752 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-08 17:58:38.787 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2025-09-08 17:58:38.837 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-10-05T21:54:35.298+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-05T21:54:35.510+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-05T21:54:37.880+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] c.c.c.service.CveDataService             : CveDataService initialized successfully
+2025-10-05T21:54:37.960+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] c.c.c.service.GenAIService               : GenAI Service initialized with API key: sk-or-v1-2...aa4a
+2025-10-05T21:54:37.963+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] c.c.c.service.GenAIService               : Using model: anthropic/claude-3.5-sonnet
+2025-10-05T21:54:37.964+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] c.c.c.service.GenAIService               : API key length: 73
+2025-10-05T21:54:37.966+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] c.c.c.controller.CveController           : CveController initialized successfully
+2025-10-05T21:54:38.209+05:30  WARN 16312 --- [cvemind_backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-05T21:54:39.447+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mariadb://localhost/cvemind_db?user=cvemind_user&password=***'
+2025-10-05T21:54:39.710+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-10-05T21:54:39.823+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-10-05T21:54:39.858+05:30  INFO 16312 --- [cvemind_backend] [restartedMain] c.c.c.CvemindBackendApplication          : Started CvemindBackendApplication in 24.437 seconds (process running for 31.287)
+2025-10-05T22:01:20.279+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-05T22:01:20.366+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-05T22:01:20.709+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 337 ms
+2025-10-05T22:01:21.313+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:01:21.328+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:01:22.136+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-1] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:01:22.643+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:01:22.643+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:01:22.964+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:01:22.972+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:01:22.977+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-2] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:01:23.064+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:01:23.066+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:01:51.912+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-5] c.c.c.controller.CveController           : Received request for CVE: CVE-2024-1941
+2025-10-05T22:01:51.912+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-5] c.c.c.service.CveDataService             : Fetching CVE by ID: CVE-2024-1941
+2025-10-05T22:01:51.980+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-5] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:01:52.028+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-5] c.c.c.service.CveDataService             : Found CVE CVE-2024-1941 in local database
+2025-10-05T22:01:52.028+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-5] c.c.c.controller.CveController           : Successfully retrieved CVE: CVE-2024-1941
+2025-10-05T22:01:52.060+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.controller.CveController           : Received request for CVE: CVE-2024-1941
+2025-10-05T22:01:52.060+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.service.CveDataService             : Fetching CVE by ID: CVE-2024-1941
+2025-10-05T22:01:52.063+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-6] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:01:52.069+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.service.CveDataService             : Found CVE CVE-2024-1941 in local database
+2025-10-05T22:01:52.071+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.controller.CveController           : Successfully retrieved CVE: CVE-2024-1941
+2025-10-05T22:02:04.552+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.controller.CveController           : Generating AI summary for CVE: CVE-2024-1941
+2025-10-05T22:02:04.553+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.service.CveDataService             : Fetching CVE with rawJson for AI processing: CVE-2024-1941
+2025-10-05T22:02:09.839+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.cvemind_backend.service.NVDService   : Mapping single CVE from NVD response
+2025-10-05T22:02:09.841+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.cvemind_backend.service.NVDService   : Processing single CVE: CVE-2024-1941
+2025-10-05T22:02:09.870+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.cvemind_backend.service.NVDService   : Extracting entity data for CVE: CVE-2024-1941
+2025-10-05T22:02:09.873+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.cvemind_backend.service.NVDService   : Set CVE ID: CVE-2024-1941
+2025-10-05T22:02:09.873+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.cvemind_backend.service.NVDService   : Set description for CVE CVE-2024-1941: 161 characters
+2025-10-05T22:02:09.873+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.cvemind_backend.service.NVDService   : Set severity for CVE CVE-2024-1941: HIGH
+2025-10-05T22:02:09.877+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.cvemind_backend.service.NVDService   : Set published date for CVE CVE-2024-1941: 2024-03-01T01:15:07Z
+2025-10-05T22:02:09.899+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.cvemind_backend.service.NVDService   : Successfully processed single CVE: CVE-2024-1941
+2025-10-05T22:02:09.930+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:02:09.972+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.service.CveDataService             : Ensured CVE CVE-2024-1941 is saved to local database
+2025-10-05T22:02:09.975+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.service.GenAIService               : Making API call to GenAI service
+2025-10-05T22:02:09.975+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.service.GenAIService               : Sending request to OpenRouter API with model: anthropic/claude-3.5-sonnet
+2025-10-05T22:02:09.977+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.service.GenAIService               : API Key status: Present
+2025-10-05T22:02:09.977+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.service.GenAIService               : API Key starts with: sk-or-v1-2c5b45
+2025-10-05T22:02:34.135+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.service.GenAIService               : Successfully received response from GenAI API, length: 4059
+2025-10-05T22:02:34.137+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.controller.CveController           : Successfully generated summary for CVE: CVE-2024-1941
+2025-10-05T22:10:05.971+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:10:05.978+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:10:06.045+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-1] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:10:06.208+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:10:06.229+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:10:06.325+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:10:06.337+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:10:06.385+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-2] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:10:06.470+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:10:06.474+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:10:35.304+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-5] c.c.c.controller.CveController           : Received request for CVE: CVE-2024-21689
+2025-10-05T22:10:35.304+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-5] c.c.c.service.CveDataService             : Fetching CVE by ID: CVE-2024-21689
+2025-10-05T22:10:35.315+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-5] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:10:35.360+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-5] c.c.c.service.CveDataService             : Found CVE CVE-2024-21689 in local database
+2025-10-05T22:10:35.362+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-5] c.c.c.controller.CveController           : Successfully retrieved CVE: CVE-2024-21689
+2025-10-05T22:10:35.407+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.controller.CveController           : Received request for CVE: CVE-2024-21689
+2025-10-05T22:10:35.411+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.service.CveDataService             : Fetching CVE by ID: CVE-2024-21689
+2025-10-05T22:10:35.418+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-6] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:10:35.427+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.service.CveDataService             : Found CVE CVE-2024-21689 in local database
+2025-10-05T22:10:35.432+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.controller.CveController           : Successfully retrieved CVE: CVE-2024-21689
+2025-10-05T22:10:39.449+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.controller.CveController           : Generating AI summary for CVE: CVE-2024-21689
+2025-10-05T22:10:39.449+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.CveDataService             : Fetching CVE with rawJson for AI processing: CVE-2024-21689
+2025-10-05T22:10:40.648+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.cvemind_backend.service.NVDService   : Mapping single CVE from NVD response
+2025-10-05T22:10:40.649+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.cvemind_backend.service.NVDService   : Processing single CVE: CVE-2024-21689
+2025-10-05T22:10:40.659+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.cvemind_backend.service.NVDService   : Extracting entity data for CVE: CVE-2024-21689
+2025-10-05T22:10:40.659+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.cvemind_backend.service.NVDService   : Set CVE ID: CVE-2024-21689
+2025-10-05T22:10:40.659+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.cvemind_backend.service.NVDService   : Set description for CVE CVE-2024-21689: 1160 characters
+2025-10-05T22:10:40.659+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.cvemind_backend.service.NVDService   : Set severity for CVE CVE-2024-21689: HIGH
+2025-10-05T22:10:40.659+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.cvemind_backend.service.NVDService   : Set published date for CVE CVE-2024-21689: 2024-08-20T10:15:04Z
+2025-10-05T22:10:40.665+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.cvemind_backend.service.NVDService   : Successfully processed single CVE: CVE-2024-21689
+2025-10-05T22:10:40.671+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:10:40.679+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.CveDataService             : Ensured CVE CVE-2024-21689 is saved to local database
+2025-10-05T22:10:40.679+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.GenAIService               : Making API call to GenAI service
+2025-10-05T22:10:40.679+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.GenAIService               : Sending request to OpenRouter API with model: anthropic/claude-3.5-sonnet
+2025-10-05T22:10:40.683+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.GenAIService               : API Key status: Present
+2025-10-05T22:10:40.685+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.GenAIService               : API Key starts with: sk-or-v1-2c5b45
+2025-10-05T22:11:04.605+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.GenAIService               : Successfully received response from GenAI API, length: 3983
+2025-10-05T22:11:04.605+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.controller.CveController           : Successfully generated summary for CVE: CVE-2024-21689
+2025-10-05T22:11:41.054+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.controller.CveController           : Received request for CVE: CVE-2024-21689
+2025-10-05T22:11:41.054+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.service.CveDataService             : Fetching CVE by ID: CVE-2024-21689
+2025-10-05T22:11:41.054+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:11:41.063+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.service.CveDataService             : Found CVE CVE-2024-21689 in local database
+2025-10-05T22:11:41.063+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.controller.CveController           : Successfully retrieved CVE: CVE-2024-21689
+2025-10-05T22:11:41.079+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.controller.CveController           : Received request for CVE: CVE-2024-21689
+2025-10-05T22:11:41.083+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.service.CveDataService             : Fetching CVE by ID: CVE-2024-21689
+2025-10-05T22:11:41.085+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-1] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:11:41.092+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.service.CveDataService             : Found CVE CVE-2024-21689 in local database
+2025-10-05T22:11:41.092+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-1] c.c.c.controller.CveController           : Successfully retrieved CVE: CVE-2024-21689
+2025-10-05T22:11:48.273+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:11:48.273+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:11:48.283+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-2] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:11:48.307+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:11:48.308+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-2] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:11:48.335+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:11:48.337+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:11:48.347+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:11:48.372+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:11:48.372+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:19:53.988+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:19:54.001+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:19:54.062+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-6] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:19:54.264+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:19:54.274+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-6] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:19:54.357+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-8] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:19:54.367+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-8] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:19:54.421+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-8] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:19:54.452+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-8] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:19:54.454+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-8] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:20:27.255+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.controller.CveController           : Received request for CVE: CVE-2024-1964
+2025-10-05T22:20:27.279+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.CveDataService             : Fetching CVE by ID: CVE-2024-1964
+2025-10-05T22:20:27.287+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:20:27.335+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.CveDataService             : Found CVE CVE-2024-1964 in local database
+2025-10-05T22:20:27.344+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.controller.CveController           : Successfully retrieved CVE: CVE-2024-1964
+2025-10-05T22:20:27.368+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.controller.CveController           : Received request for CVE: CVE-2024-1964
+2025-10-05T22:20:27.370+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.service.CveDataService             : Fetching CVE by ID: CVE-2024-1964
+2025-10-05T22:20:27.409+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:20:27.415+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.service.CveDataService             : Found CVE CVE-2024-1964 in local database
+2025-10-05T22:20:27.415+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-9] c.c.c.controller.CveController           : Successfully retrieved CVE: CVE-2024-1964
+2025-10-05T22:20:32.126+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.controller.CveController           : Generating AI summary for CVE: CVE-2024-1964
+2025-10-05T22:20:32.156+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.service.CveDataService             : Fetching CVE with rawJson for AI processing: CVE-2024-1964
+2025-10-05T22:20:33.780+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.cvemind_backend.service.NVDService   : Mapping single CVE from NVD response
+2025-10-05T22:20:33.780+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.cvemind_backend.service.NVDService   : Processing single CVE: CVE-2024-1964
+2025-10-05T22:20:33.785+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.cvemind_backend.service.NVDService   : Extracting entity data for CVE: CVE-2024-1964
+2025-10-05T22:20:33.785+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.cvemind_backend.service.NVDService   : Set CVE ID: CVE-2024-1964
+2025-10-05T22:20:33.785+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.cvemind_backend.service.NVDService   : Set description for CVE CVE-2024-1964: 91 characters
+2025-10-05T22:20:33.790+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.cvemind_backend.service.NVDService   : Set severity for CVE CVE-2024-1964: UNKNOWN
+2025-10-05T22:20:33.790+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.cvemind_backend.service.NVDService   : Set published date for CVE CVE-2024-1964: 2025-02-11T02:15:34Z
+2025-10-05T22:20:33.798+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.cvemind_backend.service.NVDService   : Successfully processed single CVE: CVE-2024-1964
+2025-10-05T22:20:33.801+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:20:33.817+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.service.CveDataService             : Ensured CVE CVE-2024-1964 is saved to local database
+2025-10-05T22:20:33.819+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.service.GenAIService               : Making API call to GenAI service
+2025-10-05T22:20:33.819+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.service.GenAIService               : Sending request to OpenRouter API with model: anthropic/claude-3.5-sonnet
+2025-10-05T22:20:33.819+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.service.GenAIService               : API Key status: Present
+2025-10-05T22:20:33.819+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.service.GenAIService               : API Key starts with: sk-or-v1-2c5b45
+2025-10-05T22:20:36.011+05:30 ERROR 16312 --- [cvemind_backend] [reactor-http-nio-7] c.c.c.service.GenAIService               : Client error 402 PAYMENT_REQUIRED: Status Code 402
+2025-10-05T22:20:36.197+05:30 ERROR 16312 --- [cvemind_backend] [reactor-http-nio-7] c.c.c.service.GenAIService               : Error response body: {"error":{"message":"Insufficient credits. This account never purchased credits. Make sure your key is on the correct account or org, and if so, purchase more at https://openrouter.ai/settings/credits","code":402}}
+2025-10-05T22:20:36.439+05:30 ERROR 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.service.GenAIService               : GenAI API call failed: 402 Payment Required from POST https://openrouter.ai/api/v1/chat/completions
 
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-09-08 17:58:38.878 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cveDataService' defined in file [E:\Future\CVEMind\backend\cvemind_backend\target\classes\com\cvemind\cvemind_backend\service\CveDataService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'cveRepository' defined in com.cvemind.cvemind_backend.repository.CveRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.cvemind.cvemind_backend.repository.CveRepository.findByProductContainingIgnoreCase(java.lang.String); Reason: Failed to create query for method public abstract java.util.List com.cvemind.cvemind_backend.repository.CveRepository.findByProductContainingIgnoreCase(java.lang.String); No property 'product' found for type 'CveEntity'
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1222)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1188)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1123)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
-	at com.cvemind.cvemind_backend.CvemindBackendApplication.main(CvemindBackendApplication.java:12)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cveRepository' defined in com.cvemind.cvemind_backend.repository.CveRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.cvemind.cvemind_backend.repository.CveRepository.findByProductContainingIgnoreCase(java.lang.String); Reason: Failed to create query for method public abstract java.util.List com.cvemind.cvemind_backend.repository.CveRepository.findByProductContainingIgnoreCase(java.lang.String); No property 'product' found for type 'CveEntity'
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1690)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1635)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
-	... 26 common frames omitted
-Caused by: org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract java.util.List com.cvemind.cvemind_backend.repository.CveRepository.findByProductContainingIgnoreCase(java.lang.String); Reason: Failed to create query for method public abstract java.util.List com.cvemind.cvemind_backend.repository.CveRepository.findByProductContainingIgnoreCase(java.lang.String); No property 'product' found for type 'CveEntity'
-	at org.springframework.data.repository.query.QueryCreationException.create(QueryCreationException.java:101)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:120)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.mapMethodsToQuery(QueryExecutorMethodInterceptor.java:104)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lambda$new$0(QueryExecutorMethodInterceptor.java:92)
-	at java.base/java.util.Optional.map(Optional.java:260)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.<init>(QueryExecutorMethodInterceptor.java:92)
-	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:434)
-	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$4(RepositoryFactoryBeanSupport.java:350)
-	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135)
-	at org.springframework.data.util.Lazy.get(Lazy.java:113)
-	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:356)
-	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
-	... 36 common frames omitted
-Caused by: java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.List com.cvemind.cvemind_backend.repository.CveRepository.findByProductContainingIgnoreCase(java.lang.String); No property 'product' found for type 'CveEntity'
-	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:107)
-	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:128)
-	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:260)
-	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
-	... 48 common frames omitted
-Caused by: org.springframework.data.mapping.PropertyReferenceException: No property 'product' found for type 'CveEntity'
-	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:94)
-	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:455)
-	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:431)
-	at org.springframework.data.mapping.PropertyPath.lambda$from$0(PropertyPath.java:384)
-	at java.base/java.util.concurrent.ConcurrentMap.computeIfAbsent(ConcurrentMap.java:330)
-	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:366)
-	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:344)
-	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:81)
-	at org.springframework.data.repository.query.parser.PartTree$OrPart.lambda$new$0(PartTree.java:259)
-	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
-	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:260)
-	at org.springframework.data.repository.query.parser.PartTree$Predicate.lambda$new$0(PartTree.java:389)
-	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
-	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:390)
-	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:103)
-	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:101)
-	... 52 common frames omitted
-2025-09-08 18:00:29.770 [restartedMain] INFO  c.c.c.CvemindBackendApplication - Starting CvemindBackendApplication using Java 17.0.12 with PID 21624 (E:\Future\CVEMind\backend\cvemind_backend\target\classes started by krish in E:\Future\CVEMind\backend\cvemind_backend)
-2025-09-08 18:00:29.780 [restartedMain] DEBUG c.c.c.CvemindBackendApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
-2025-09-08 18:00:29.780 [restartedMain] INFO  c.c.c.CvemindBackendApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-08 18:00:29.911 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-09-08 18:00:29.914 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-09-08 18:00:32.688 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2025-09-08 18:00:32.694 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-08 18:00:33.090 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 367 ms. Found 1 JPA repository interface.
-2025-09-08 18:00:33.142 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2025-09-08 18:00:33.148 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2025-09-08 18:00:33.234 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.cvemind.cvemind_backend.repository.CveRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-08 18:00:33.235 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
-2025-09-08 18:00:34.872 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2025-09-08 18:00:34.902 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-08 18:00:34.903 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
-2025-09-08 18:00:35.045 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-08 18:00:35.047 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5132 ms
-2025-09-08 18:00:36.412 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-08 18:00:36.954 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:e8028d76-b56e-4462-a469-938a8752ebd1 user=SA
-2025-09-08 18:00:36.957 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-08 18:00:37.076 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-08 18:00:37.266 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
-2025-09-08 18:00:37.373 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-08 18:00:38.289 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-08 18:00:38.561 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 2.3.232
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-09-08 18:00:40.811 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-08 18:00:40.857 [restartedMain] DEBUG org.hibernate.SQL - drop table if exists cves cascade 
-2025-09-08 18:00:40.877 [restartedMain] DEBUG org.hibernate.SQL - create table cves (published_date timestamp(6) with time zone, description TEXT, id varchar(255) not null, raw_json TEXT, severity varchar(255), primary key (id))
-2025-09-08 18:00:40.903 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-08 18:00:41.965 [restartedMain] INFO  c.c.c.service.NVDService - NVDService initialized with base URL: https://services.nvd.nist.gov/rest/json/cves/2.0
-2025-09-08 18:00:41.968 [restartedMain] INFO  c.c.c.service.CveDataService - CveDataService initialized successfully
-2025-09-08 18:00:41.971 [restartedMain] INFO  c.c.c.service.GenAIService - GenAIService initialized with model: anthropic/claude-3.5-sonnet
-2025-09-08 18:00:42.186 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-08 18:00:43.960 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:e8028d76-b56e-4462-a469-938a8752ebd1'
-2025-09-08 18:00:44.052 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-09-08 18:00:44.066 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
-2025-09-08 18:00:44.278 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2025-09-08 18:00:44.332 [restartedMain] INFO  c.c.c.CvemindBackendApplication - Started CvemindBackendApplication in 16.273 seconds (process running for 17.938)
-2025-09-08 18:00:45.780 [RMI TCP Connection(2)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-08 18:00:45.781 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-08 18:00:45.783 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+org.springframework.web.reactive.function.client.WebClientResponseException: 402 Payment Required from POST https://openrouter.ai/api/v1/chat/completions
+	at org.springframework.web.reactive.function.client.WebClientResponseException.create(WebClientResponseException.java:337) ~[spring-webflux-6.2.10.jar:6.2.10]
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ? 402 PAYMENT_REQUIRED from POST https://openrouter.ai/api/v1/chat/completions [DefaultWebClient]
+Original Stack Trace:
+		at org.springframework.web.reactive.function.client.WebClientResponseException.create(WebClientResponseException.java:337) ~[spring-webflux-6.2.10.jar:6.2.10]
+		at org.springframework.web.reactive.function.client.DefaultClientResponse.lambda$createException$1(DefaultClientResponse.java:214) ~[spring-webflux-6.2.10.jar:6.2.10]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:106) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxOnErrorReturn$ReturnSubscriber.onNext(FluxOnErrorReturn.java:162) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2096) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxDefaultIfEmpty$DefaultIfEmptySubscriber.onComplete(FluxDefaultIfEmpty.java:134) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableSubscriber.onComplete(FluxMapFuseable.java:152) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onComplete(FluxContextWrite.java:126) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableConditionalSubscriber.onComplete(FluxMapFuseable.java:350) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onComplete(FluxFilterFuseable.java:391) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2097) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoCollect$CollectSubscriber.onComplete(MonoCollect.java:145) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators.complete(Operators.java:137) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.netty.channel.FluxReceive.startReceiver(FluxReceive.java:179) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.FluxReceive.subscribe(FluxReceive.java:145) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.core.publisher.InternalFluxOperator.subscribe(InternalFluxOperator.java:68) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.netty.ByteBufFlux.subscribe(ByteBufFlux.java:340) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxPeekFuseable$PeekFuseableSubscriber.onComplete(FluxPeekFuseable.java:277) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableSubscriber.onComplete(FluxMapFuseable.java:152) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onComplete(FluxContextWrite.java:126) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableConditionalSubscriber.onComplete(FluxMapFuseable.java:350) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onComplete(FluxFilterFuseable.java:391) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2097) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoCollect$CollectSubscriber.onComplete(MonoCollect.java:145) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.netty.channel.FluxReceive.onInboundComplete(FluxReceive.java:413) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.ChannelOperations.onInboundComplete(ChannelOperations.java:455) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.ChannelOperations.terminate(ChannelOperations.java:509) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:846) ~[reactor-netty-http-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:107) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:318) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.ssl.SslHandler.unwrap(SslHandler.java:1519) ~[netty-handler-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.ssl.SslHandler.decodeJdkCompatible(SslHandler.java:1377) ~[netty-handler-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.ssl.SslHandler.decode(SslHandler.java:1428) ~[netty-handler-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:530) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:469) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:796) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998) ~[netty-common-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.124.Final.jar:4.1.124.Final]
+		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+	Suppressed: java.lang.Exception: #block terminated with an error
+		at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:104) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Mono.block(Mono.java:1779) ~[reactor-core-3.7.9.jar:3.7.9]
+		at com.cvemind.cvemind_backend.service.GenAIService.makeApiCall(GenAIService.java:165) ~[classes/:na]
+		at com.cvemind.cvemind_backend.service.GenAIService.summarizeCve(GenAIService.java:128) ~[classes/:na]
+		at com.cvemind.cvemind_backend.controller.CveController.summarizeCve(CveController.java:149) ~[classes/:na]
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+		at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+		at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.44.jar:6.0]
+		at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.44.jar:6.0]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at com.cvemind.cvemind_backend.config.RateLimitFilter.doFilter(RateLimitFilter.java:42) ~[classes/:na]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2025-10-05T22:20:36.572+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-10] c.c.c.controller.CveController           : Successfully generated summary for CVE: CVE-2024-1964
+2025-10-05T22:22:12.620+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.controller.CveController           : Generating AI summary for CVE: CVE-2024-1964
+2025-10-05T22:22:12.623+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.service.CveDataService             : Fetching CVE with rawJson for AI processing: CVE-2024-1964
+2025-10-05T22:22:13.191+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.cvemind_backend.service.NVDService   : Mapping single CVE from NVD response
+2025-10-05T22:22:13.195+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.cvemind_backend.service.NVDService   : Processing single CVE: CVE-2024-1964
+2025-10-05T22:22:13.204+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.cvemind_backend.service.NVDService   : Extracting entity data for CVE: CVE-2024-1964
+2025-10-05T22:22:13.206+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.cvemind_backend.service.NVDService   : Set CVE ID: CVE-2024-1964
+2025-10-05T22:22:13.208+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.cvemind_backend.service.NVDService   : Set description for CVE CVE-2024-1964: 91 characters
+2025-10-05T22:22:13.210+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.cvemind_backend.service.NVDService   : Set severity for CVE CVE-2024-1964: UNKNOWN
+2025-10-05T22:22:13.212+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.cvemind_backend.service.NVDService   : Set published date for CVE CVE-2024-1964: 2025-02-11T02:15:34Z
+2025-10-05T22:22:13.219+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.cvemind_backend.service.NVDService   : Successfully processed single CVE: CVE-2024-1964
+2025-10-05T22:22:13.229+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:22:13.244+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.service.CveDataService             : Ensured CVE CVE-2024-1964 is saved to local database
+2025-10-05T22:22:13.244+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.service.GenAIService               : Making API call to GenAI service
+2025-10-05T22:22:13.248+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.service.GenAIService               : Sending request to OpenRouter API with model: anthropic/claude-3.5-sonnet
+2025-10-05T22:22:13.252+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.service.GenAIService               : API Key status: Present
+2025-10-05T22:22:13.258+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.service.GenAIService               : API Key starts with: sk-or-v1-2c5b45
+2025-10-05T22:22:14.437+05:30 ERROR 16312 --- [cvemind_backend] [reactor-http-nio-7] c.c.c.service.GenAIService               : Client error 402 PAYMENT_REQUIRED: Status Code 402
+2025-10-05T22:22:14.449+05:30 ERROR 16312 --- [cvemind_backend] [reactor-http-nio-7] c.c.c.service.GenAIService               : Error response body: {"error":{"message":"Insufficient credits. This account never purchased credits. Make sure your key is on the correct account or org, and if so, purchase more at https://openrouter.ai/settings/credits","code":402}}
+2025-10-05T22:22:14.453+05:30 ERROR 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.service.GenAIService               : GenAI API call failed: 402 Payment Required from POST https://openrouter.ai/api/v1/chat/completions
+
+org.springframework.web.reactive.function.client.WebClientResponseException: 402 Payment Required from POST https://openrouter.ai/api/v1/chat/completions
+	at org.springframework.web.reactive.function.client.WebClientResponseException.create(WebClientResponseException.java:337) ~[spring-webflux-6.2.10.jar:6.2.10]
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ? 402 PAYMENT_REQUIRED from POST https://openrouter.ai/api/v1/chat/completions [DefaultWebClient]
+Original Stack Trace:
+		at org.springframework.web.reactive.function.client.WebClientResponseException.create(WebClientResponseException.java:337) ~[spring-webflux-6.2.10.jar:6.2.10]
+		at org.springframework.web.reactive.function.client.DefaultClientResponse.lambda$createException$1(DefaultClientResponse.java:214) ~[spring-webflux-6.2.10.jar:6.2.10]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:106) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxOnErrorReturn$ReturnSubscriber.onNext(FluxOnErrorReturn.java:162) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2096) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxDefaultIfEmpty$DefaultIfEmptySubscriber.onComplete(FluxDefaultIfEmpty.java:134) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableSubscriber.onComplete(FluxMapFuseable.java:152) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onComplete(FluxContextWrite.java:126) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableConditionalSubscriber.onComplete(FluxMapFuseable.java:350) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onComplete(FluxFilterFuseable.java:391) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2097) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoCollect$CollectSubscriber.onComplete(MonoCollect.java:145) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators.complete(Operators.java:137) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.netty.channel.FluxReceive.startReceiver(FluxReceive.java:179) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.FluxReceive.subscribe(FluxReceive.java:145) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.core.publisher.InternalFluxOperator.subscribe(InternalFluxOperator.java:68) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.netty.ByteBufFlux.subscribe(ByteBufFlux.java:340) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxPeekFuseable$PeekFuseableSubscriber.onComplete(FluxPeekFuseable.java:277) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableSubscriber.onComplete(FluxMapFuseable.java:152) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onComplete(FluxContextWrite.java:126) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableConditionalSubscriber.onComplete(FluxMapFuseable.java:350) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onComplete(FluxFilterFuseable.java:391) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2097) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoCollect$CollectSubscriber.onComplete(MonoCollect.java:145) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.netty.channel.FluxReceive.onInboundComplete(FluxReceive.java:413) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.ChannelOperations.onInboundComplete(ChannelOperations.java:455) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.ChannelOperations.terminate(ChannelOperations.java:509) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:846) ~[reactor-netty-http-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:107) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:318) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.ssl.SslHandler.unwrap(SslHandler.java:1519) ~[netty-handler-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.ssl.SslHandler.decodeJdkCompatible(SslHandler.java:1377) ~[netty-handler-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.ssl.SslHandler.decode(SslHandler.java:1428) ~[netty-handler-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:530) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:469) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:796) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998) ~[netty-common-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.124.Final.jar:4.1.124.Final]
+		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+	Suppressed: java.lang.Exception: #block terminated with an error
+		at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:104) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Mono.block(Mono.java:1779) ~[reactor-core-3.7.9.jar:3.7.9]
+		at com.cvemind.cvemind_backend.service.GenAIService.makeApiCall(GenAIService.java:165) ~[classes/:na]
+		at com.cvemind.cvemind_backend.service.GenAIService.summarizeCve(GenAIService.java:128) ~[classes/:na]
+		at com.cvemind.cvemind_backend.controller.CveController.summarizeCve(CveController.java:149) ~[classes/:na]
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+		at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+		at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.44.jar:6.0]
+		at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.44.jar:6.0]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at com.cvemind.cvemind_backend.config.RateLimitFilter.doFilter(RateLimitFilter.java:42) ~[classes/:na]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2025-10-05T22:22:14.497+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-3] c.c.c.controller.CveController           : Successfully generated summary for CVE: CVE-2024-1964
+2025-10-05T22:22:33.951+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.c.controller.CveController           : Generating AI summary for CVE: CVE-2024-1964
+2025-10-05T22:22:33.954+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.c.service.CveDataService             : Fetching CVE with rawJson for AI processing: CVE-2024-1964
+2025-10-05T22:22:34.312+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.cvemind_backend.service.NVDService   : Mapping single CVE from NVD response
+2025-10-05T22:22:34.314+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.cvemind_backend.service.NVDService   : Processing single CVE: CVE-2024-1964
+2025-10-05T22:22:34.316+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.cvemind_backend.service.NVDService   : Extracting entity data for CVE: CVE-2024-1964
+2025-10-05T22:22:34.319+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.cvemind_backend.service.NVDService   : Set CVE ID: CVE-2024-1964
+2025-10-05T22:22:34.319+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.cvemind_backend.service.NVDService   : Set description for CVE CVE-2024-1964: 91 characters
+2025-10-05T22:22:34.319+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.cvemind_backend.service.NVDService   : Set severity for CVE CVE-2024-1964: UNKNOWN
+2025-10-05T22:22:34.323+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.cvemind_backend.service.NVDService   : Set published date for CVE CVE-2024-1964: 2025-02-11T02:15:34Z
+2025-10-05T22:22:34.325+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.cvemind_backend.service.NVDService   : Successfully processed single CVE: CVE-2024-1964
+2025-10-05T22:22:34.336+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0 where ce1_0.id=?
+2025-10-05T22:22:34.345+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.c.service.CveDataService             : Ensured CVE CVE-2024-1964 is saved to local database
+2025-10-05T22:22:34.351+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.c.service.GenAIService               : Making API call to GenAI service
+2025-10-05T22:22:34.351+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.c.service.GenAIService               : Sending request to OpenRouter API with model: anthropic/claude-3.5-sonnet
+2025-10-05T22:22:34.354+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.c.service.GenAIService               : API Key status: Present
+2025-10-05T22:22:34.356+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.c.service.GenAIService               : API Key starts with: sk-or-v1-2c5b45
+2025-10-05T22:22:35.544+05:30 ERROR 16312 --- [cvemind_backend] [reactor-http-nio-7] c.c.c.service.GenAIService               : Client error 402 PAYMENT_REQUIRED: Status Code 402
+2025-10-05T22:22:35.546+05:30 ERROR 16312 --- [cvemind_backend] [reactor-http-nio-7] c.c.c.service.GenAIService               : Error response body: {"error":{"message":"Insufficient credits. This account never purchased credits. Make sure your key is on the correct account or org, and if so, purchase more at https://openrouter.ai/settings/credits","code":402}}
+2025-10-05T22:22:35.550+05:30 ERROR 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.c.service.GenAIService               : GenAI API call failed: 402 Payment Required from POST https://openrouter.ai/api/v1/chat/completions
+
+org.springframework.web.reactive.function.client.WebClientResponseException: 402 Payment Required from POST https://openrouter.ai/api/v1/chat/completions
+	at org.springframework.web.reactive.function.client.WebClientResponseException.create(WebClientResponseException.java:337) ~[spring-webflux-6.2.10.jar:6.2.10]
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ? 402 PAYMENT_REQUIRED from POST https://openrouter.ai/api/v1/chat/completions [DefaultWebClient]
+Original Stack Trace:
+		at org.springframework.web.reactive.function.client.WebClientResponseException.create(WebClientResponseException.java:337) ~[spring-webflux-6.2.10.jar:6.2.10]
+		at org.springframework.web.reactive.function.client.DefaultClientResponse.lambda$createException$1(DefaultClientResponse.java:214) ~[spring-webflux-6.2.10.jar:6.2.10]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:106) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxOnErrorReturn$ReturnSubscriber.onNext(FluxOnErrorReturn.java:162) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2096) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxDefaultIfEmpty$DefaultIfEmptySubscriber.onComplete(FluxDefaultIfEmpty.java:134) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableSubscriber.onComplete(FluxMapFuseable.java:152) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onComplete(FluxContextWrite.java:126) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableConditionalSubscriber.onComplete(FluxMapFuseable.java:350) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onComplete(FluxFilterFuseable.java:391) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2097) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoCollect$CollectSubscriber.onComplete(MonoCollect.java:145) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators.complete(Operators.java:137) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.netty.channel.FluxReceive.startReceiver(FluxReceive.java:179) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.FluxReceive.subscribe(FluxReceive.java:145) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.core.publisher.InternalFluxOperator.subscribe(InternalFluxOperator.java:68) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.netty.ByteBufFlux.subscribe(ByteBufFlux.java:340) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxPeekFuseable$PeekFuseableSubscriber.onComplete(FluxPeekFuseable.java:277) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableSubscriber.onComplete(FluxMapFuseable.java:152) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onComplete(FluxContextWrite.java:126) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMapFuseable$MapFuseableConditionalSubscriber.onComplete(FluxMapFuseable.java:350) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onComplete(FluxFilterFuseable.java:391) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2097) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.MonoCollect$CollectSubscriber.onComplete(MonoCollect.java:145) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.netty.channel.FluxReceive.onInboundComplete(FluxReceive.java:413) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.ChannelOperations.onInboundComplete(ChannelOperations.java:455) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.ChannelOperations.terminate(ChannelOperations.java:509) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:846) ~[reactor-netty-http-1.2.9.jar:1.2.9]
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.2.9.jar:1.2.9]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:107) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:318) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.ssl.SslHandler.unwrap(SslHandler.java:1519) ~[netty-handler-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.ssl.SslHandler.decodeJdkCompatible(SslHandler.java:1377) ~[netty-handler-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.ssl.SslHandler.decode(SslHandler.java:1428) ~[netty-handler-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:530) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:469) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:796) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998) ~[netty-common-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.124.Final.jar:4.1.124.Final]
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.124.Final.jar:4.1.124.Final]
+		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+	Suppressed: java.lang.Exception: #block terminated with an error
+		at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:104) ~[reactor-core-3.7.9.jar:3.7.9]
+		at reactor.core.publisher.Mono.block(Mono.java:1779) ~[reactor-core-3.7.9.jar:3.7.9]
+		at com.cvemind.cvemind_backend.service.GenAIService.makeApiCall(GenAIService.java:165) ~[classes/:na]
+		at com.cvemind.cvemind_backend.service.GenAIService.summarizeCve(GenAIService.java:128) ~[classes/:na]
+		at com.cvemind.cvemind_backend.controller.CveController.summarizeCve(CveController.java:149) ~[classes/:na]
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+		at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+		at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.44.jar:6.0]
+		at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.10.jar:6.2.10]
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.44.jar:6.0]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at com.cvemind.cvemind_backend.config.RateLimitFilter.doFilter(RateLimitFilter.java:42) ~[classes/:na]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2025-10-05T22:22:35.569+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-4] c.c.c.controller.CveController           : Successfully generated summary for CVE: CVE-2024-1964
+2025-10-05T22:38:52.755+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-8] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:38:52.761+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-8] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:38:52.837+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-8] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:38:52.898+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-8] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:38:52.898+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-8] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:38:52.944+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.controller.CveController           : Received request for all CVEs
+2025-10-05T22:38:52.948+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.CveDataService             : Fetching all CVEs from local database
+2025-10-05T22:38:52.956+05:30 DEBUG 16312 --- [cvemind_backend] [http-nio-8080-exec-7] org.hibernate.SQL                        : select ce1_0.id,ce1_0.description,ce1_0.published_date,ce1_0.severity from cves ce1_0
+2025-10-05T22:38:52.982+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.service.CveDataService             : Retrieved 458 CVEs from local database
+2025-10-05T22:38:52.986+05:30  INFO 16312 --- [cvemind_backend] [http-nio-8080-exec-7] c.c.c.controller.CveController           : Returning 458 CVEs from database
+2025-10-05T22:40:14.036+05:30  INFO 16312 --- [cvemind_backend] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-05T22:40:14.290+05:30  INFO 16312 --- [cvemind_backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-05T22:40:14.463+05:30  INFO 16312 --- [cvemind_backend] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-05T22:40:14.496+05:30  INFO 16312 --- [cvemind_backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-05T22:40:14.506+05:30  INFO 16312 --- [cvemind_backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

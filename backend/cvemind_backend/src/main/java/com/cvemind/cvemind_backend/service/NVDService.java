@@ -1,7 +1,6 @@
 package com.cvemind.cvemind_backend.service;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,7 @@ public class NVDService {
     private static final Logger logger = LoggerFactory.getLogger(NVDService.class);
     
     private final WebClient webClient;
-    private final ObjectMapper objectMapper;
+    private final Logger logger = LoggerFactory.getLogger(NVDService.class);
 
     public NVDService(WebClient.Builder builder) {
         this.webClient = builder
@@ -36,47 +35,16 @@ public class NVDService {
     }
 
     public List<CveDto> fetchCveByKeyword(String keyword) {
-        logger.info("Fetching CVEs by keyword: {}", keyword);
-        long startTime = System.currentTimeMillis();
-        
-        try {
-            @SuppressWarnings("rawtypes")
-            Map response = this.webClient.get()
-                    .uri(uriBuilder -> {
-                        String uri = uriBuilder
-                                .queryParam("keywordSearch", keyword)
-                                .build()
-                                .toString();
-                        logger.debug("Making request to NVD API: {}", uri);
-                        return uriBuilder
-                                .queryParam("keywordSearch", keyword)
-                                .build();
-                    })
-                    .retrieve()
-                    .bodyToMono(Map.class)
-                    .timeout(Duration.ofSeconds(30))
-                    .block();
-            
-            List<CveDto> results = mapResponseToDtos(response);
-            long duration = System.currentTimeMillis() - startTime;
-            
-            logger.info("Successfully fetched {} CVEs for keyword '{}' in {}ms", 
-                       results.size(), keyword, duration);
-            
-            return results;
-            
-        } catch (WebClientResponseException e) {
-            long duration = System.currentTimeMillis() - startTime;
-            logger.error("HTTP error fetching CVEs by keyword '{}' after {}ms: Status={}, Body={}", 
-                        keyword, duration, e.getStatusCode(), e.getResponseBodyAsString());
-            throw new RuntimeException("Failed to fetch CVEs from NVD: " + e.getMessage(), e);
-            
-        } catch (Exception e) {
-            long duration = System.currentTimeMillis() - startTime;
-            logger.error("Error fetching CVEs by keyword '{}' after {}ms: {}", 
-                        keyword, duration, e.getMessage(), e);
-            throw new RuntimeException("Failed to fetch CVEs from NVD", e);
-        }
+        @SuppressWarnings("rawtypes")
+        Map response = this.webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("keywordSearch", keyword)
+                        .build())
+                .retrieve()
+                .bodyToMono(Map.class)
+                .block();
+
+        return mapResponseToDtos(response);
     }
 
     public CveDto fetchCVEById(String cveId) {
@@ -128,13 +96,13 @@ public class NVDService {
 
     private List<CveDto> mapResponseToDtos(@SuppressWarnings("rawtypes") Map response) {
         logger.debug("Mapping NVD response to DTOs");
-        
+
         List<CveDto> dtos = new ArrayList<>();
         if (response == null) {
             logger.warn("Received null response from NVD");
             return dtos;
         }
-        
+
         if (!response.containsKey("vulnerabilities")) {
             logger.warn("No 'vulnerabilities' key found in NVD response");
             return dtos;
@@ -143,10 +111,10 @@ public class NVDService {
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> vulns = (List<Map<String, Object>>) response.get("vulnerabilities");
         logger.debug("Processing {} vulnerabilities from NVD response", vulns.size());
-        
+
         int successCount = 0;
         int errorCount = 0;
-        
+
         for (Map<String, Object> vuln : vulns) {
             try {
                 @SuppressWarnings("unchecked")
@@ -154,11 +122,14 @@ public class NVDService {
                 if (cveWrapper != null) {
                     String cveId = (String) cveWrapper.get("id");
                     logger.debug("Processing CVE: {}", cveId);
-                    
+
                     String rawJson = toJsonString(cveWrapper);
-                    CveEntity entity = extractEntityFromMap(cveWrapper, rawJson);
-                    dtos.add(CveMapper.toDto(entity));
-                    
+                    CveEntity entity = extractEntityFromMap(cveWrapper);
+
+                    // Create DTO with rawJson for AI processing
+                    CveDto dto = CveMapper.toDtoWithReferences(entity, rawJson);
+                    dtos.add(dto);
+
                     successCount++;
                     logger.debug("Successfully processed CVE: {}", cveId);
                 } else {
@@ -170,19 +141,19 @@ public class NVDService {
                 logger.warn("Error processing vulnerability entry: {}", e.getMessage(), e);
             }
         }
-        
+
         logger.info("Mapped {} CVEs successfully, {} errors encountered", successCount, errorCount);
         return dtos;
     }
 
     private CveDto mapSingleToDto(@SuppressWarnings("rawtypes") Map response) {
         logger.debug("Mapping single CVE from NVD response");
-        
+
         if (response == null) {
             logger.warn("Received null response from NVD");
             return null;
         }
-        
+
         if (!response.containsKey("vulnerabilities")) {
             logger.warn("No 'vulnerabilities' key found in NVD response");
             return null;
@@ -205,66 +176,87 @@ public class NVDService {
 
             String cveId = (String) cveWrapper.get("id");
             logger.debug("Processing single CVE: {}", cveId);
-            
+
             String rawJson = toJsonString(cveWrapper);
-            CveEntity entity = extractEntityFromMap(cveWrapper, rawJson);
-            
+            CveEntity entity = extractEntityFromMap(cveWrapper);
+
+            // Create DTO with rawJson for AI processing
+            CveDto dto = CveMapper.toDtoWithReferences(entity, rawJson);
+
             logger.debug("Successfully processed single CVE: {}", cveId);
-            return CveMapper.toDto(entity);
-            
+            return dto;
+
         } catch (Exception e) {
             logger.error("Error mapping single CVE: {}", e.getMessage(), e);
             return null;
         }
     }
 
-    private CveEntity extractEntityFromMap(Map<String, Object> cveWrapper, String rawJson) {
-        String cveId = (String) cveWrapper.get("id");
-        logger.debug("Extracting entity data for CVE: {}", cveId);
-        
+    private CveEntity extractEntityFromMap(Map<String, Object> cveWrapper) {
         CveEntity entity = new CveEntity();
+        logger.debug("Extracting entity data for CVE: {}", cveWrapper.get("id"));
 
         // ID
-        entity.setId(cveId);
-        logger.debug("Set CVE ID: {}", cveId);
+        String id = (String) cveWrapper.get("id");
+        entity.setId(id);
+        logger.debug("Set CVE ID: {}", id);
 
-        // Description (pick English if multiple exist)
         try {
-            String description = extractDescription(cveWrapper);
+            // Description (pick English if multiple exist)
+            String description = "";
+            @SuppressWarnings("unchecked")
+            Map<String, Object> descriptions = (Map<String, Object>) ((List<?>) cveWrapper.get("descriptions")).get(0);
+            if (descriptions != null) {
+                description = (String) descriptions.get("value");
+            }
             entity.setDescription(description);
-            logger.debug("Set description for CVE {}: {} characters", cveId, description.length());
+            logger.debug("Set description for CVE {}: {} characters", id, description.length());
         } catch (Exception e) {
-            logger.warn("Failed to extract description for CVE {}: {}", cveId, e.getMessage());
+            logger.warn("Failed to extract description for CVE {}: {}", id, e.getMessage());
             entity.setDescription("");
         }
 
         // Severity (extract CVSS base severity if available)
         try {
-            String severity = extractSeverity(cveWrapper);
-            entity.setSeverity(severity);
-            logger.debug("Set severity for CVE {}: {}", cveId, severity);
+            @SuppressWarnings("unchecked")
+            Map<String, Object> metrics = (Map<String, Object>) cveWrapper.get("metrics");
+            if (metrics != null) {
+                @SuppressWarnings("unchecked")
+                List<Map<String, Object>> cvssMetrics = (List<Map<String, Object>>) metrics.get("cvssMetricV31");
+                if (cvssMetrics != null && !cvssMetrics.isEmpty()) {
+                    Map<String, Object> firstMetric = cvssMetrics.get(0);
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> cvssData = (Map<String, Object>) firstMetric.get("cvssData");
+                    if (cvssData != null) {
+                        severity = (String) cvssData.get("baseSeverity");
+                    }
+                }
+            }
+            entity.setSeverity(severity != null ? severity : "UNKNOWN");
+            logger.debug("Set severity for CVE {}: {}", id, severity);
         } catch (Exception e) {
-            logger.warn("Failed to extract severity for CVE {}: {}", cveId, e.getMessage());
+            logger.warn("Failed to extract severity for CVE {}: {}", id, e.getMessage());
             entity.setSeverity("UNKNOWN");
         }
 
-        // Published date
         try {
             String publishedStr = (String) cveWrapper.get("published");
             if (publishedStr != null) {
-                // Parse ISO date format: 2023-01-01T00:00:00.000
-                LocalDateTime publishedDate = LocalDateTime.parse(publishedStr.substring(0, 19));
-                entity.setPublishedDate(publishedDate.atZone(java.time.ZoneId.systemDefault()).toInstant());
-                logger.debug("Set published date for CVE {}: {}", cveId, publishedDate);
+                // Handle timestamp with milliseconds: 2024-04-09T17:15:42.823
+                // Remove the milliseconds part and parse as Instant
+                if (publishedStr.contains(".")) {
+                    publishedStr = publishedStr.substring(0, publishedStr.lastIndexOf('.')) + "Z";
+                } else if (!publishedStr.endsWith("Z")) {
+                    publishedStr += "Z";
+                }
+                Instant publishedDate = Instant.parse(publishedStr);
+                entity.setPublishedDate(publishedDate);
+                logger.debug("Set published date for CVE {}: {}", id, publishedDate);
             }
         } catch (Exception e) {
-            logger.warn("Failed to parse published date for CVE {}: {}", cveId, e.getMessage());
+            logger.warn("Failed to parse published date for CVE {}: {}", id, e.getMessage());
             entity.setPublishedDate(null);
         }
-
-        // Raw JSON
-        entity.setRawJson(rawJson);
-        logger.debug("Set raw JSON for CVE {}: {} characters", cveId, rawJson.length());
 
         logger.debug("Successfully extracted all available data for CVE: {}", cveId);
         return entity;
