@@ -4,23 +4,34 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import com.cvemind.cvemind_backend.dto.CveDto;
 import com.cvemind.cvemind_backend.entity.CveEntity;
 import com.cvemind.cvemind_backend.utils.CveMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class NVDService {
+    
+    private static final Logger logger = LoggerFactory.getLogger(NVDService.class);
+    
     private final WebClient webClient;
     private final Logger logger = LoggerFactory.getLogger(NVDService.class);
 
     public NVDService(WebClient.Builder builder) {
-        this.webClient = builder.baseUrl("https://services.nvd.nist.gov/rest/json/cves/2.0").build();
+        this.webClient = builder
+                .baseUrl("https://services.nvd.nist.gov/rest/json/cves/2.0")
+                .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(10 * 1024 * 1024)) // 10MB
+                .build();
+        this.objectMapper = new ObjectMapper();
+        logger.info("NVDService initialized with base URL: https://services.nvd.nist.gov/rest/json/cves/2.0");
     }
 
     public List<CveDto> fetchCveByKeyword(String keyword) {
@@ -37,16 +48,50 @@ public class NVDService {
     }
 
     public CveDto fetchCVEById(String cveId) {
-        @SuppressWarnings("rawtypes")
-        Map response = this.webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .queryParam("cveId", cveId)
-                        .build())
-                .retrieve()
-                .bodyToMono(Map.class)
-                .block();
+        logger.info("Fetching CVE by ID: {}", cveId);
+        long startTime = System.currentTimeMillis();
+        
+        try {
+            @SuppressWarnings("rawtypes")
+            Map response = this.webClient.get()
+                    .uri(uriBuilder -> {
+                        String uri = uriBuilder
+                                .queryParam("cveId", cveId)
+                                .build()
+                                .toString();
+                        logger.debug("Making request to NVD API: {}", uri);
+                        return uriBuilder
+                                .queryParam("cveId", cveId)
+                                .build();
+                    })
+                    .retrieve()
+                    .bodyToMono(Map.class)
+                    .timeout(Duration.ofSeconds(30))
+                    .block();
 
-        return mapSingleToDto(response);
+            CveDto result = mapSingleToDto(response);
+            long duration = System.currentTimeMillis() - startTime;
+            
+            if (result != null) {
+                logger.info("Successfully fetched CVE '{}' in {}ms", cveId, duration);
+            } else {
+                logger.warn("CVE '{}' not found after {}ms", cveId, duration);
+            }
+            
+            return result;
+            
+        } catch (WebClientResponseException e) {
+            long duration = System.currentTimeMillis() - startTime;
+            logger.error("HTTP error fetching CVE '{}' after {}ms: Status={}, Body={}", 
+                        cveId, duration, e.getStatusCode(), e.getResponseBodyAsString());
+            throw new RuntimeException("Failed to fetch CVE from NVD: " + e.getMessage(), e);
+            
+        } catch (Exception e) {
+            long duration = System.currentTimeMillis() - startTime;
+            logger.error("Error fetching CVE '{}' after {}ms: {}", 
+                        cveId, duration, e.getMessage(), e);
+            throw new RuntimeException("Failed to fetch CVE from NVD", e);
+        }
     }
 
     private List<CveDto> mapResponseToDtos(@SuppressWarnings("rawtypes") Map response) {
@@ -172,7 +217,6 @@ public class NVDService {
         }
 
         // Severity (extract CVSS base severity if available)
-        String severity = "UNKNOWN";
         try {
             @SuppressWarnings("unchecked")
             Map<String, Object> metrics = (Map<String, Object>) cveWrapper.get("metrics");
@@ -214,13 +258,83 @@ public class NVDService {
             entity.setPublishedDate(null);
         }
 
+        logger.debug("Successfully extracted all available data for CVE: {}", cveId);
         return entity;
+    }
+
+    @SuppressWarnings("unchecked")
+    private String extractDescription(Map<String, Object> cveWrapper) {
+        List<Map<String, Object>> descriptions = (List<Map<String, Object>>) cveWrapper.get("descriptions");
+        if (descriptions == null || descriptions.isEmpty()) {
+            logger.debug("No descriptions found in CVE data");
+            return "";
+        }
+
+        // Try to find English description first
+        Optional<Map<String, Object>> englishDesc = descriptions.stream()
+                .filter(desc -> "en".equals(desc.get("lang")))
+                .findFirst();
+
+        if (englishDesc.isPresent()) {
+            String description = (String) englishDesc.get().get("value");
+            logger.debug("Found English description: {} characters", description.length());
+            return description;
+        } else {
+            // Fallback to first available description
+            String description = (String) descriptions.get(0).get("value");
+            String lang = (String) descriptions.get(0).get("lang");
+            logger.debug("Using fallback description in language '{}': {} characters", lang, description.length());
+            return description;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private String extractSeverity(Map<String, Object> cveWrapper) {
+        Map<String, Object> metrics = (Map<String, Object>) cveWrapper.get("metrics");
+        if (metrics == null) {
+            logger.debug("No metrics found in CVE data");
+            return "UNKNOWN";
+        }
+
+        // Try CVSS v3.1 first
+        if (metrics.containsKey("cvssMetricV31")) {
+            List<Map<String, Object>> cvssMetrics = (List<Map<String, Object>>) metrics.get("cvssMetricV31");
+            if (cvssMetrics != null && !cvssMetrics.isEmpty()) {
+                Map<String, Object> firstMetric = cvssMetrics.get(0);
+                Map<String, Object> cvssData = (Map<String, Object>) firstMetric.get("cvssData");
+                if (cvssData != null) {
+                    String severity = (String) cvssData.get("baseSeverity");
+                    logger.debug("Found CVSS v3.1 severity: {}", severity);
+                    return severity != null ? severity : "UNKNOWN";
+                }
+            }
+        }
+
+        // Try CVSS v3.0 as fallback
+        if (metrics.containsKey("cvssMetricV30")) {
+            List<Map<String, Object>> cvssMetrics = (List<Map<String, Object>>) metrics.get("cvssMetricV30");
+            if (cvssMetrics != null && !cvssMetrics.isEmpty()) {
+                Map<String, Object> firstMetric = cvssMetrics.get(0);
+                Map<String, Object> cvssData = (Map<String, Object>) firstMetric.get("cvssData");
+                if (cvssData != null) {
+                    String severity = (String) cvssData.get("baseSeverity");
+                    logger.debug("Found CVSS v3.0 severity: {}", severity);
+                    return severity != null ? severity : "UNKNOWN";
+                }
+            }
+        }
+
+        logger.debug("No CVSS severity found in metrics");
+        return "UNKNOWN";
     }
 
     private String toJsonString(Object obj) {
         try {
-            return new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsString(obj);
+            String json = objectMapper.writeValueAsString(obj);
+            logger.debug("Successfully converted object to JSON: {} characters", json.length());
+            return json;
         } catch (Exception e) {
+            logger.error("Error converting object to JSON: {}", e.getMessage(), e);
             return "{}";
         }
     }

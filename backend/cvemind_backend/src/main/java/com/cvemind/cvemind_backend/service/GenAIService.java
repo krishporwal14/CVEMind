@@ -125,7 +125,14 @@ public class GenAIService {
                         """,
                 cveDetails);
 
-        return makeApiCall(systemPrompt, userPrompt);
+        try {
+            String result = makeApiCall(systemPrompt, userPrompt);
+            logger.info("Successfully generated related resources for CVE: {}", cveId);
+            return result;
+        } catch (Exception e) {
+            logger.error("Failed to generate related resources for CVE {}: {}", cveId, e.getMessage(), e);
+            throw e;
+        }
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

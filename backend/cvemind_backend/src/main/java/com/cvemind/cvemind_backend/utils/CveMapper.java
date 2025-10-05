@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CveMapper {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final Logger logger = LoggerFactory.getLogger(CveMapper.class);
 
     // Convert Entity -> DTO
     public static CveDto toDto(CveEntity entity) {
