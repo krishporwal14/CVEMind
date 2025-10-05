@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -11,11 +10,10 @@ import {
   AlertTriangle,
   RefreshCw,
   Download,
-  Share2
+  Database
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import SearchBar from "../components/SearchBar";
 import CveCard from "../components/CveCard";
 import SeverityBadge from "../components/SeverityBadge";
 import { Loading, SkeletonGrid } from "../components/Loading";
@@ -41,22 +39,53 @@ const ContentSection = styled.section`
   }
 `;
 
-const SearchSection = styled(motion.div)`
-  margin-bottom: 2rem;
+const PageHeader = styled(motion.div)`
+  text-align: center;
+  margin-bottom: 3rem;
 `;
 
-const ResultsHeader = styled(motion.div)`
+const PageTitle = styled.h1`
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.text};
+  margin-bottom: 1rem;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
-  margin-bottom: 2rem;
 `;
 
-const ResultsInfo = styled.div`
+const PageDescription = styled.p`
+  font-size: 1.125rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+`;
+
+const ControlsSection = styled(motion.div)`
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  padding: 1.5rem;
+`;
+
+const LeftControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+`;
+
+const RightControls = styled.div`
+  display: flex;
+  align-items: center;
   gap: 1rem;
 `;
 
@@ -70,18 +99,11 @@ const ResultsCount = styled.div`
   }
 `;
 
-const ControlsSection = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-`;
-
 const FilterControls = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.colors.backgroundGradient};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: 0.5rem;
@@ -130,11 +152,16 @@ const ActionButton = styled(motion.button)`
     color: ${({ theme }) => theme.colors.text};
     border-color: ${({ theme }) => theme.colors.accent};
   }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 const ViewToggle = styled.div`
   display: flex;
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.colors.backgroundGradient};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: hidden;
@@ -217,67 +244,38 @@ const ErrorState = styled(motion.div)`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
 `;
 
-export default function Results() {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const keyword = searchParams.get("keyword") || "";
-  
+export default function AllCves() {
   // State
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [severityFilter, setSeverityFilter] = useState('all');
   const [sortBy, setSortBy] = useState('publishedDate');
   const [sortOrder, setSortOrder] = useState('desc');
   const [viewMode, setViewMode] = useState('grid');
 
-  // Load results
+  // Load all CVEs
   useEffect(() => {
-    if (keyword) {
-      loadResults(keyword);
-    }
-  }, [keyword]);
+    loadAllCves();
+  }, []);
 
-  const loadResults = async (searchKeyword) => {
-    if (!searchKeyword.trim()) return;
-    
+  const loadAllCves = async () => {
     setLoading(true);
     setError(null);
     
     try {
-      const data = await cveApi.searchCves(searchKeyword);
+      const data = await cveApi.getAllCves();
       setResults(Array.isArray(data) ? data : []);
     } catch (err) {
-      setError(err.message || 'Failed to load results');
+      setError(err.message || 'Failed to load CVEs');
       setResults([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSearch = (newKeyword) => {
-    if (newKeyword.trim()) {
-      navigate(`/results?keyword=${encodeURIComponent(newKeyword)}`);
-    }
-  };
-
-  const handleAnalyze = async (cveId) => {
-    try {
-      const analysis = await cveApi.summarizeCve(cveId);
-      // Store analysis result in sessionStorage for the Analysis page
-      sessionStorage.setItem(`cve-analysis-${cveId}`, JSON.stringify(analysis));
-      navigate(`/analysis/${cveId}`);
-    } catch (err) {
-      console.error('Failed to analyze CVE:', err);
-      // Navigate anyway to show error on analysis page
-      navigate(`/analysis/${cveId}`);
-    }
-  };
-
   const handleRefresh = () => {
-    if (keyword) {
-      loadResults(keyword);
-    }
+    loadAllCves();
   };
 
   const handleExport = () => {
@@ -295,37 +293,9 @@ export default function Results() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `cve-results-${keyword}-${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `all-cves-${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-  };
-
-  const handleShare = async () => {
-    const url = window.location.href;
-    
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `CVE Search Results for "${keyword}"`,
-          text: `Found ${results.length} vulnerabilities matching "${keyword}"`,
-          url: url,
-        });
-      } catch {
-        // Fallback to clipboard
-        copyToClipboard(url);
-      }
-    } else {
-      copyToClipboard(url);
-    }
-  };
-
-  const copyToClipboard = async (text) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      // You could show a toast notification here
-    } catch (err) {
-      console.error('Failed to copy to clipboard:', err);
-    }
   };
 
   // Filter and sort results
@@ -387,88 +357,40 @@ export default function Results() {
       <Navbar />
       
       <ContentSection>
-        <SearchSection
+        <PageHeader
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <SearchBar 
-            onSearch={handleSearch}
-            isLoading={loading}
-            placeholder={`Search CVEs... (current: "${keyword}")`}
-          />
-        </SearchSection>
+          <PageTitle>
+            <Database size={36} />
+            All CVEs
+          </PageTitle>
+          <PageDescription>
+            Browse the complete database of Common Vulnerabilities and Exposures (CVEs) 
+            with advanced filtering and sorting options.
+          </PageDescription>
+        </PageHeader>
 
-        <ResultsHeader
+        <ControlsSection
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
         >
-          <ResultsInfo>
+          <LeftControls>
             <ResultsCount>
               {loading ? (
-                "Searching..."
+                "Loading CVEs..."
               ) : error ? (
-                "Search failed"
+                "Failed to load"
               ) : (
                 <>
-                  Found <strong>{filteredAndSortedResults.length}</strong> of <strong>{results.length}</strong> vulnerabilities
-                  {keyword && <> for "<strong>{keyword}</strong>"</>}
+                  Showing <strong>{filteredAndSortedResults.length}</strong> of <strong>{results.length}</strong> CVEs
                 </>
               )}
             </ResultsCount>
             
-            <ControlsSection>
-              <ActionButton
-                onClick={handleRefresh}
-                disabled={loading}
-                whileTap={{ scale: 0.95 }}
-              >
-                <RefreshCw size={14} />
-                Refresh
-              </ActionButton>
-              
-              {results.length > 0 && (
-                <>
-                  <ActionButton
-                    onClick={handleExport}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Download size={14} />
-                    Export CSV
-                  </ActionButton>
-                  
-                  <ActionButton
-                    onClick={handleShare}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Share2 size={14} />
-                    Share
-                  </ActionButton>
-                </>
-              )}
-              
-              <ViewToggle>
-                <ViewButton
-                  active={viewMode === 'grid'}
-                  onClick={() => setViewMode('grid')}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Grid3X3 size={14} />
-                </ViewButton>
-                <ViewButton
-                  active={viewMode === 'list'}
-                  onClick={() => setViewMode('list')}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ListIcon size={14} />
-                </ViewButton>
-              </ViewToggle>
-            </ControlsSection>
-          </ResultsInfo>
-
-          {!loading && results.length > 0 && (
-            <>
+            {!loading && results.length > 0 && (
               <FilterControls>
                 <Filter size={14} />
                 
@@ -496,44 +418,84 @@ export default function Results() {
                   ))}
                 </SeverityFilters>
               </FilterControls>
+            )}
+          </LeftControls>
+          
+          <RightControls>
+            <ActionButton
+              onClick={handleRefresh}
+              disabled={loading}
+              whileTap={{ scale: 0.95 }}
+            >
+              <RefreshCw size={14} />
+              Refresh
+            </ActionButton>
+            
+            {results.length > 0 && (
+              <ActionButton
+                onClick={handleExport}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Download size={14} />
+                Export CSV
+              </ActionButton>
+            )}
+            
+            <ViewToggle>
+              <ViewButton
+                active={viewMode === 'grid'}
+                onClick={() => setViewMode('grid')}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Grid3X3 size={14} />
+              </ViewButton>
+              <ViewButton
+                active={viewMode === 'list'}
+                onClick={() => setViewMode('list')}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ListIcon size={14} />
+              </ViewButton>
+            </ViewToggle>
+          </RightControls>
+        </ControlsSection>
 
-              <FilterControls>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Sort by:</span>
-                
-                <FilterButton
-                  active={sortBy === 'publishedDate'}
-                  onClick={() => setSortBy('publishedDate')}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Date
-                </FilterButton>
-                
-                <FilterButton
-                  active={sortBy === 'severity'}
-                  onClick={() => setSortBy('severity')}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Severity
-                </FilterButton>
-                
-                <FilterButton
-                  active={sortBy === 'id'}
-                  onClick={() => setSortBy('id')}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  CVE ID
-                </FilterButton>
-                
-                <FilterButton
-                  onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {sortOrder === 'asc' ? <SortAsc size={14} /> : <SortDesc size={14} />}
-                </FilterButton>
-              </FilterControls>
-            </>
-          )}
-        </ResultsHeader>
+        {!loading && results.length > 0 && (
+          <FilterControls style={{ marginBottom: '2rem' }}>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Sort by:</span>
+            
+            <FilterButton
+              active={sortBy === 'publishedDate'}
+              onClick={() => setSortBy('publishedDate')}
+              whileTap={{ scale: 0.95 }}
+            >
+              Date
+            </FilterButton>
+            
+            <FilterButton
+              active={sortBy === 'severity'}
+              onClick={() => setSortBy('severity')}
+              whileTap={{ scale: 0.95 }}
+            >
+              Severity
+            </FilterButton>
+            
+            <FilterButton
+              active={sortBy === 'id'}
+              onClick={() => setSortBy('id')}
+              whileTap={{ scale: 0.95 }}
+            >
+              CVE ID
+            </FilterButton>
+            
+            <FilterButton
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+              whileTap={{ scale: 0.95 }}
+            >
+              {sortOrder === 'asc' ? <SortAsc size={14} /> : <SortDesc size={14} />}
+            </FilterButton>
+          </FilterControls>
+        )}
 
         <ResultsContainer>
           <AnimatePresence mode="wait">
@@ -549,7 +511,7 @@ export default function Results() {
                 <EmptyIcon>
                   <AlertTriangle size={24} />
                 </EmptyIcon>
-                <h3>Search Failed</h3>
+                <h3>Failed to Load CVEs</h3>
                 <p>{error}</p>
                 <ActionButton onClick={handleRefresh} style={{ marginTop: '1rem' }}>
                   <RefreshCw size={14} />
@@ -564,13 +526,13 @@ export default function Results() {
                 exit={{ opacity: 0 }}
               >
                 <EmptyIcon>
-                  <AlertTriangle size={24} />
+                  <Database size={24} />
                 </EmptyIcon>
-                <h3>No Results Found</h3>
+                <h3>No CVEs Found</h3>
                 <p>
                   {results.length === 0 
-                    ? `No vulnerabilities found matching "${keyword}"`
-                    : 'No results match the current filters'
+                    ? 'No CVEs are currently available in the database'
+                    : 'No CVEs match the current filters'
                   }
                 </p>
                 {results.length > 0 && (
@@ -589,11 +551,10 @@ export default function Results() {
                     key={cve.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    transition={{ duration: 0.3, delay: index * 0.02 }}
                   >
                     <CveCard
                       cve={cve}
-                      onAnalyze={handleAnalyze}
                       showAnalyzeButton={false}
                     />
                   </motion.div>

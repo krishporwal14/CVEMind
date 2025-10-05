@@ -20,9 +20,9 @@ import com.cvemind.cvemind_backend.service.NVDService;
 @RequestMapping("/api/v1/cve")
 @CrossOrigin(origins = "*")
 public class CveController {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(CveController.class);
-    
+
     private final CveDataService cveDataService;
     private final NVDService nvdService;
     private final GenAIService genAIService;
@@ -39,12 +39,12 @@ public class CveController {
     @GetMapping("/search")
     public ResponseEntity<List<CveDto>> searchCves(@RequestParam String keyword) {
         logger.info("Received search request for keyword: {}", keyword);
-        
+
         if (keyword == null || keyword.trim().isEmpty()) {
             logger.warn("Empty keyword provided for CVE search");
             return ResponseEntity.badRequest().build();
         }
-        
+
         try {
             List<CveDto> cves = cveDataService.searchByKeyword(keyword.trim());
             logger.info("Returning {} CVEs for keyword: {}", cves.size(), keyword);
@@ -58,12 +58,12 @@ public class CveController {
     @GetMapping("/{cveId}")
     public ResponseEntity<CveDto> getCveById(@PathVariable String cveId) {
         logger.info("Received request for CVE: {}", cveId);
-        
+
         if (cveId == null || cveId.trim().isEmpty()) {
             logger.warn("Empty CVE ID provided");
             return ResponseEntity.badRequest().build();
         }
-        
+
         try {
             CveDto cve = cveDataService.getCveById(cveId.trim());
             if (cve != null) {
@@ -82,7 +82,7 @@ public class CveController {
     @GetMapping("/all")
     public ResponseEntity<List<CveDto>> getAllCves() {
         logger.info("Received request for all CVEs");
-        
+
         try {
             List<CveDto> cves = cveDataService.getAllCves();
             logger.info("Returning {} CVEs from database", cves.size());
@@ -103,7 +103,7 @@ public class CveController {
         if (keyword == null || keyword.trim().isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-        
+
         try {
             List<CveDto> cves = nvdService.fetchCveByKeyword(keyword.trim());
             logger.info("NVD returned {} CVEs for keyword: {}", cves.size(), keyword);
@@ -117,7 +117,7 @@ public class CveController {
     @GetMapping("/nvd/{cveId}")
     public ResponseEntity<CveDto> getCveFromNvd(@PathVariable String cveId) {
         logger.info("Direct NVD request for CVE: {}", cveId);
-        
+
         try {
             CveDto cve = nvdService.fetchCVEById(cveId);
             if (cve != null) {
@@ -136,7 +136,7 @@ public class CveController {
     @PostMapping("/{cveId}/summarize")
     public ResponseEntity<Map<String, String>> summarizeCve(@PathVariable String cveId) {
         logger.info("Generating AI summary for CVE: {}", cveId);
-        
+
         try {
             // Use special method that gets rawJson for AI processing
             CveDto cve = cveDataService.getCveWithRawJsonForAI(cveId);
@@ -144,10 +144,10 @@ public class CveController {
                 logger.warn("CVE not found for summarization: {}", cveId);
                 return ResponseEntity.notFound().build();
             }
-            
+
             String cveDetails = formatCveForAI(cve);
             String summary = genAIService.summarizeCve(cveDetails);
-            
+
             logger.info("Successfully generated summary for CVE: {}", cveId);
             return ResponseEntity.ok(Map.of("summary", summary));
         } catch (Exception e) {
@@ -156,109 +156,16 @@ public class CveController {
                     .body(Map.of("error", "Failed to generate summary"));
         }
     }
-
-    // Apply similar changes to other AI endpoints...
-    @PostMapping("/{cveId}/mitigation")
-    public ResponseEntity<Map<String, String>> generateMitigation(@PathVariable String cveId) {
-        logger.info("Generating mitigation strategy for CVE: {}", cveId);
-        
-        try {
-            CveDto cve = cveDataService.getCveWithRawJsonForAI(cveId);
-            if (cve == null) {
-                return ResponseEntity.notFound().build();
-            }
-            
-            String cveDetails = formatCveForAI(cve);
-            String mitigation = genAIService.generateMitigationStrategy(cveDetails);
-            
-            logger.info("Successfully generated mitigation strategy for CVE: {}", cveId);
-            return ResponseEntity.ok(Map.of("mitigation", mitigation));
-        } catch (Exception e) {
-            logger.error("Error generating mitigation for CVE {}: {}", cveId, e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", "Failed to generate mitigation strategy"));
-        }
-    }
-
-    @PostMapping("/{cveId}/risk-assessment")
-    public ResponseEntity<Map<String, String>> assessRisk(
-            @PathVariable String cveId,
-            @RequestBody Map<String, String> organizationContext) {
-        
-        logger.info("Generating risk assessment for CVE: {}", cveId);
-        
-        try {
-            CveDto cve = cveDataService.getCveById(cveId);
-            if (cve == null) {
-                return ResponseEntity.notFound().build();
-            }
-            
-            String cveDetails = formatCveForAI(cve);
-            String orgContext = organizationContext.getOrDefault("context", "");
-            String riskAssessment = genAIService.assessRiskContext(cveDetails, orgContext);
-            
-            logger.info("Successfully generated risk assessment for CVE: {}", cveId);
-            return ResponseEntity.ok(Map.of("riskAssessment", riskAssessment));
-        } catch (Exception e) {
-            logger.error("Error generating risk assessment for CVE {}: {}", cveId, e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", "Failed to generate risk assessment"));
-        }
-    }
-
-    @PostMapping("/{cveId}/technical-analysis")
-    public ResponseEntity<Map<String, String>> generateTechnicalAnalysis(@PathVariable String cveId) {
-        logger.info("Generating technical analysis for CVE: {}", cveId);
-        
-        try {
-            CveDto cve = cveDataService.getCveById(cveId);
-            if (cve == null) {
-                return ResponseEntity.notFound().build();
-            }
-            
-            String cveDetails = formatCveForAI(cve);
-            String analysis = genAIService.generateTechnicalAnalysis(cveDetails);
-            
-            logger.info("Successfully generated technical analysis for CVE: {}", cveId);
-            return ResponseEntity.ok(Map.of("technicalAnalysis", analysis));
-        } catch (Exception e) {
-            logger.error("Error generating technical analysis for CVE {}: {}", cveId, e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", "Failed to generate technical analysis"));
-        }
-    }
-
-    @PostMapping("/{cveId}/resources")
-    public ResponseEntity<Map<String, String>> getRelatedResources(@PathVariable String cveId) {
-        logger.info("Generating related resources for CVE: {}", cveId);
-        
-        try {
-            CveDto cve = cveDataService.getCveById(cveId);
-            if (cve == null) {
-                return ResponseEntity.notFound().build();
-            }
-            
-            String cveDetails = formatCveForAI(cve);
-            String resources = genAIService.getRelatedResources(cveId, cveDetails);
-            
-            logger.info("Successfully generated related resources for CVE: {}", cveId);
-            return ResponseEntity.ok(Map.of("resources", resources));
-        } catch (Exception e) {
-            logger.error("Error generating resources for CVE {}: {}", cveId, e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", "Failed to generate related resources"));
-        }
-    }
-
+    
     // ========== Batch AI Analysis ==========
 
     @PostMapping("/batch/summarize")
     public ResponseEntity<Map<String, String>> batchSummarize(@RequestBody List<String> cveIds) {
         logger.info("Generating batch summaries for {} CVEs", cveIds.size());
-        
+
         try {
             Map<String, String> summaries = new java.util.HashMap<>();
-            
+
             for (String cveId : cveIds) {
                 try {
                     CveDto cve = cveDataService.getCveById(cveId);
@@ -274,7 +181,7 @@ public class CveController {
                     summaries.put(cveId, "Error generating summary");
                 }
             }
-            
+
             logger.info("Successfully generated {} summaries", summaries.size());
             return ResponseEntity.ok(summaries);
         } catch (Exception e) {
@@ -290,8 +197,28 @@ public class CveController {
         return ResponseEntity.ok(Map.of(
                 "status", "healthy",
                 "timestamp", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                "services", "CveDataService, NVDService, GenAIService"
-        ));
+                "services", "CveDataService, NVDService, GenAIService"));
+    }
+
+    @GetMapping("/test-ai")
+    public ResponseEntity<Map<String, String>> testAI() {
+        logger.info("Testing AI service with simple prompt");
+
+        try {
+            String testResult = genAIService
+                    .summarizeCve("Test CVE: This is a simple test to check if the API key is working correctly.");
+            return ResponseEntity.ok(Map.of(
+                    "status", "success",
+                    "result", testResult,
+                    "timestamp", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+        } catch (Exception e) {
+            logger.error("AI test failed: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of(
+                            "status", "error",
+                            "error", e.getMessage(),
+                            "timestamp", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+        }
     }
 
     @GetMapping("/stats")
@@ -301,15 +228,13 @@ public class CveController {
             Map<String, Long> severityCount = allCves.stream()
                     .collect(java.util.stream.Collectors.groupingBy(
                             cve -> cve.getSeverity() != null ? cve.getSeverity() : "UNKNOWN",
-                            java.util.stream.Collectors.counting()
-                    ));
-            
+                            java.util.stream.Collectors.counting()));
+
             Map<String, Object> stats = Map.of(
                     "totalCves", allCves.size(),
                     "severityDistribution", severityCount,
-                    "lastUpdated", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            );
-            
+                    "lastUpdated", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+
             return ResponseEntity.ok(stats);
         } catch (Exception e) {
             logger.error("Error generating stats: {}", e.getMessage(), e);
@@ -324,16 +249,15 @@ public class CveController {
         details.append("CVE ID: ").append(cve.getId()).append("\n");
         details.append("Description: ").append(cve.getDescription()).append("\n");
         details.append("Severity: ").append(cve.getSeverity()).append("\n");
-        
+
         if (cve.getPublishedDate() != null) {
             details.append("Published Date: ").append(cve.getPublishedDate()).append("\n");
         }
-        
-        
+
         if (cve.getReferences() != null && !cve.getReferences().isEmpty()) {
             details.append("References: ").append(cve.getReferences()).append("\n");
         }
-        
+
         return details.toString();
     }
 
