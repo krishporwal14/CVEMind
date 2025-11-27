@@ -1,39 +1,32 @@
-# CVEMind 🧠🔒
+# CVEMind
 
 A modern, AI-powered CVE (Common Vulnerabilities and Exposures) analysis platform that combines real-time vulnerability data with intelligent insights through a beautiful 3D interface.
 
-![CVEMind Demo](https://img.shields.io/badge/Status-Active-green) ![Java](https://img.shields.io/badge/Java-17+-orange) ![React](https://img.shields.io/badge/React-18+-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0+-green)
+![Java](https://img.shields.io/badge/Java-17+-orange) ![React](https://img.shields.io/badge/React-18+-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0+-green)
 
-## 🚀 Features
+## Features
 
-### 🎯 Core Functionality
+### Core Functionality
 - **Real-time CVE Data**: Integration with NVD (National Vulnerability Database)
 - **AI-Powered Analysis**: Intelligent vulnerability assessment and recommendations
 - **Advanced Search**: Multi-parameter search with filtering and sorting
 - **3D Visualization**: Interactive globe displaying vulnerability data
 - **Modern UI/UX**: Clean, responsive design with light/dark themes
 
-### 🔍 Search & Analysis
+### Search & Analysis
 - Search by CVE ID, keywords, or severity levels
 - Filter by publication date, CVSS scores, and impact metrics
 - Export results to CSV format
 - Detailed vulnerability analysis with AI insights
 - Markdown rendering for rich content display
 
-### 🎨 User Interface
-- **Interactive 3D Globe**: Visualize global vulnerability trends
-- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
-- **Theme Support**: Light and dark mode with smooth transitions
-- **Syntax Highlighting**: Code blocks with copy functionality
-- **Loading States**: Skeleton loaders and progress indicators
-
-## 🏗️ Architecture
+## Architecture
 
 ### Frontend (React + Vite)
 ```
 frontend/cvemind_frontend/
 ├── src/
-│   ├── components/          # Reusable UI components
+│   ├── components/         # Reusable UI components
 │   ├── pages/              # Main application pages
 │   ├── contexts/           # React contexts (Theme)
 │   ├── hooks/              # Custom React hooks
@@ -78,7 +71,7 @@ backend/cvemind_backend/
 - **NVD API** - National Vulnerability Database
 - **AI Services** - For vulnerability analysis and insights
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - **Node.js 18+** and **pnpm**
@@ -135,29 +128,7 @@ POST   /api/v1/cve/{cveId}/summarize      # AI analysis
 }
 ```
 
-## 🎨 Pages
-
-### 🏠 Landing Page
-- Hero section with animated 3D globe
-- Quick access to search and browse functionality
-- Modern, clean design with theme support
-
-### 🔍 Search Results
-- Advanced filtering and sorting options
-- CVE cards with severity indicators
-- Export and pagination capabilities
-
-### 📊 CVE Analysis
-- Detailed vulnerability information
-- AI-powered insights and recommendations
-- Markdown rendering for rich content
-
-### 🌐 3D Visualization
-- Interactive globe with vulnerability data points
-- Smooth animations and responsive controls
-- Performance-optimized rendering
-
-## 🔧 Configuration
+## Configuration
 
 ### Backend Configuration
 ```properties
@@ -176,47 +147,19 @@ export const ENABLE_3D_GLOBE = true;
 export const DEFAULT_THEME = 'dark';
 ```
 
-## 🚀 Deployment
-
-### Backend Deployment
-```bash
-# Build JAR file
-./mvnw clean package
-
-# Run production build
-java -jar target/cvemind-backend-1.0.0.jar
-```
-
-### Frontend Deployment
-```bash
-# Build for production
-pnpm run build
-
-# Preview production build
-pnpm run preview
-```
-
-## 🤝 Contributing
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Commit changes**: `git commit -m 'Add amazing feature'`
-4. **Push to branch**: `git push origin feature/amazing-feature`
-5. **Open a Pull Request**
-
 ### Development Guidelines
 - Follow existing code style and conventions
 - Add tests for new features
 - Update documentation as needed
 - Ensure all tests pass before submitting PR
 
-## 👨‍💻 Developer
+## Developer
 
 **Krish Porwal**
-- GitHub: [@krishporwal](https://github.com/krishporwal)
+- GitHub: [@krishporwal14](https://github.com/krishporwal14)
 - Email: krishporwal18@gmail.com
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **NIST NVD** for providing comprehensive vulnerability data
 - **Three.js Community** for amazing 3D graphics capabilities
