@@ -64,7 +64,7 @@ backend/cvemind_backend/
 - **Spring Data JPA** - Database abstraction layer
 - **Spring Web** - RESTful web services
 - **Maven** - Dependency management
-- **H2/PostgreSQL** - Database options
+- **H2/PostgreSQL/MariaDB** - Database options
 - **AI Integration** - For intelligent vulnerability analysis
 
 ### External APIs
